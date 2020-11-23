@@ -24,36 +24,45 @@
         <div class="col-md-8 col-lg-6 col-xl-4 align-self-center m-5">
             <div class="jumbotron bg-dark text-white">
                 <form method="post" action="login">
-                    <h1>Home Inventory</h1>
+                    <h1 class="text-center">Home eVentory</h1>
                     <br>
-                    <p class="lead">Login</p>
+                    <br>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend ">
                             <span class="input-group-text baseColor">Username</span>
                         </div>
-                        <input type="email" class="form-control" name="email" value="${email}">
+                        <input type="email" class="form-control" name="email" value="cprg352+admin@gmail.com">  <%-- value="${email}"> --%>
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text baseColor">Password</span>
                         </div>
-                        <input type="password" class="form-control" name="password" value="${password}">
+                        <input type="password" class="form-control" name="password" value="password"> <%-- value="${password}"> --%>
                     </div>
-                    <br>
                     <div class="form-group row p-3">
                         <input type="submit" class="btn btn-primary btn-block" value="Log in">
                     </div>
+                    <c:choose>
+                        <c:when test="${emptiedField == true}">
+                            <p>Invalid entry. Please enter both your username and password.</p>
+                        </c:when>
+                        <c:when test="${invalid == true}">
+                            <p>Invalid login</p>
+                        </c:when>
+                        <c:when test="${logout == true}">
+                            <p>The user has successfully logged out.</p>
+                        </c:when>
+                    </c:choose>
                 </form>
-                <c:if test="${emptiedField == true}">
-                    <p>Invalid entry. Please enter both your username and password.</p>
-                </c:if>
-                <c:if test="${invalid == true}">
-                    <p>Invalid login</p>
-                </c:if>
-                <c:if test="${logout == true}">
-                    <p>The user has successfully logged out.</p>
-                </c:if>
+                    <br>
+                <form method="get" action="signup">
+                    <input type="submit" class="btn btn-success btn-block" value="Sign Up">
+                </form>
+                <br>
+                <form method="post" action="forgot">
+                    <input type="submit" class="btn btn-warning btn-block" value="Forgot Password">
+                </form>
             </div>
         </div>
 
