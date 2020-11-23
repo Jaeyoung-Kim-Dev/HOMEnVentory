@@ -29,7 +29,7 @@ public class AdminFilter implements Filter {
         User user = userDB.get(email);
         int role = user.getRole().getRoleId();
 
-        if (role != 1 && role != 3) {
+        if (role != 1) {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.sendRedirect("inventory");
             return;
