@@ -36,6 +36,10 @@
         <servlet-name>SignupServlet</servlet-name>
         <servlet-class>servlets.SignupServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyAccountServlet</servlet-name>
+        <servlet-class>servlets.MyAccountServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminServlet</servlet-name>
         <url-pattern>/admin</url-pattern>
@@ -51,6 +55,10 @@
     <servlet-mapping>
         <servlet-name>SignupServlet</servlet-name>
         <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyAccountServlet</servlet-name>
+        <url-pattern>/myaccount</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
