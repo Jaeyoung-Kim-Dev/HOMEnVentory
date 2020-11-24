@@ -23,29 +23,44 @@
 
         <div class="col-md-8 col-lg-6 col-xl-4 align-self-center m-5">
             <div class="jumbotron bg-dark text-white">
-                <form method="post" action="signup">
-                    <h1 class="text-center">Create an Account</h1>
+                <form method="post" action="myaccount">
+                    <h1 class="text-center">My Account</h1>
                     <br>
                     <br>
-                    <input type="email" name="email" placeholder="Email" class="form-control bg-dark text-white">
+                    <input type="email" name="email" placeholder="Email" class="form-control bg-dark text-white" value="${userToEdit.email}">
                     <br>
-                    <input type="text" name="firstName" placeholder="First Name" class="form-control bg-dark text-white">
+                    <input type="text" name="firstName" placeholder="First Name" class="form-control bg-dark text-white" value="${userToEdit.firstName}">
                     <br>
-                    <input type="text" name="lastName" placeholder="Last Name" class="form-control bg-dark text-white">
+                    <input type="text" name="lastName" placeholder="Last Name" class="form-control bg-dark text-white" value="${userToEdit.lastName}">
                     <br>
-                    <input type="password" name="password" placeholder="Password" class="form-control bg-dark text-white">
+                    <input type="password" name="password" placeholder="Password" class="form-control bg-dark text-white" value="${userToEdit.password}">
+                    <br>
+                    <div class="form-check form-check-inline">                               
+                        <div class="alert badge-success p-2 m-0">
+                            <input class="form-check-input " type="radio" name="isActive" id="activeRadio" onclick = \"getAnswer('active') value="active" ${userToEdit.email == null || userToEdit.active ? 'checked': ''}>
+                            <label class="form-check-label" for="activeRadio">Active</label>
+                        </div>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <div class="alert badge-danger p-2 m-0">
+                            <input class="form-check-input" type="radio" name="isActive" id="inactiveRadio" onclick = \"getAnswer('active') value="inactive" ${userToEdit.email != null && !userToEdit.active ? 'checked':''}>
+                            <label class="form-check-label" for="inactiveRadio">Inactive</label>
+                        </div>
+                    </div>
+                    <br>
                     <br>
                     <input type="submit" value="Save" class="btn btn-success btn-block">
+                    <input type="hidden" name="action" value="saveUser"> 
                 </form>
                 <br>
-                <form method="get" action="signup">                                    
+                <form method="get" action="myaccount">                                    
                     <input type="submit" value="Cancel" class="btn btn-secondary btn-block">
                     <input type="hidden" name="action" value="cancel">                                                                             
                 </form> 
                 <br>
                 <c:choose>
-                    <c:when test="${exsitingUser == true}">
-                        <p>The email is already used. Please try again.</p>
+                    <c:when test="${saved == true}">
+                        <p>The account information is successfully updated.</p>
                     </c:when>
                     <c:when test="${emptiedField == true}">
                         <p>Invalid entry. Please enter all the fields.</p>
