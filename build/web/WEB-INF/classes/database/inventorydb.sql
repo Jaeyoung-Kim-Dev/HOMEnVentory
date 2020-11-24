@@ -84,3 +84,4 @@ INSERT INTO `item` (`category`,`item_name`,`price`,`owner`) VALUES (1, 'toaster'
 INSERT INTO `item` (`category`,`item_name`,`price`,`owner`) VALUES (3, 'lamp',5,'cprg352+anne@gmail.com');
 INSERT INTO `item` (`category`,`item_name`,`price`,`owner`) VALUES (6, 'winter tires',200,'cprg352+anne@gmail.com');
 INSERT INTO `item` (`category`,`item_name`,`price`,`owner`) VALUES (5, 'dresser',50,'cprg352+anne@gmail.com');
+INSERT INTO `item` (`category`,`item_name`,`price`,`owner`) VALUES (7, 'microwave',120,'cprg352+barb@gmail.com');

@@ -7,7 +7,11 @@ package dataaccess;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import models.Category;
+import models.Item;
+import models.Role;
+import models.User;
 
 /**
  *
@@ -18,7 +22,7 @@ public class CategoriesDB {
     /**
      * Method that returns all rows in the User table
      *
-     * @return a List of Users
+     * @return a List of Categories
      * @throws Exception if there is a Exception with PreparedStatements and
      * ResultSets
      */
@@ -49,4 +53,6 @@ public class CategoriesDB {
             em.close();
         }
     }
+    
+    
 }

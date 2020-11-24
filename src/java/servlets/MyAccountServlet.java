@@ -6,7 +6,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -30,8 +29,8 @@ public class MyAccountServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {        
-        
+            throws ServletException, IOException {
+
         String action = request.getParameter("action");
 
         if ("cancel".equals(action)) {
@@ -41,15 +40,15 @@ public class MyAccountServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
-        
+
         try {
             AccountService accountService = new AccountService();
-            User user = accountService.getUser(email);            
+            User user = accountService.getUser(email);
             request.setAttribute("userToEdit", user);
         } catch (Exception ex) {
             Logger.getLogger(AdminServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         getServletContext().getRequestDispatcher("/WEB-INF/myaccount.jsp").forward(request, response);
     }
 
@@ -63,54 +62,36 @@ public class MyAccountServlet extends HttpServlet {
             throws ServletException, IOException {
         AccountService accountService = new AccountService();
         String action = request.getParameter("action");
-        String email = request.getParameter("email");
 
-        switch (action) {
-            // when the press the "Delete" button of the user in the table
-            // it passes the email address for SQL query
-            case "deleteUser":
-                try {
-                    accountService.deleteUser(email);
-                    request.setAttribute("deleteMsg", true);
-                    request.setAttribute("emailDeleted", email);
+        HttpSession session = request.getSession();
+        String email = (String) session.getAttribute("email");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String password = request.getParameter("password");
+        boolean isActive = ("active".equals(request.getParameter("isActive")));
+        int role = Integer.parseInt(request.getParameter("roleName"));
 
-                } catch (Exception ex) {
-                    Logger.getLogger(AdminServlet.class
-                            .getName()).log(Level.SEVERE, null, ex);
-                }
-                break;
-            // when the press the "Save" button of the user form
-            case "saveUser":
-                boolean isActive = ("active".equals(request.getParameter("isActive")));
-                String firstName = request.getParameter("firstName");
-                String lastName = request.getParameter("lastName");
-                String password = request.getParameter("password");
-                int role = Integer.parseInt(request.getParameter("roleName"));
+        if ("saveUser".equals(action)) {
+            //validates that user name and password are not empty
+            if (firstName == null || firstName.equals("") || lastName == null || lastName.equals("") || password == null || password.equals("")) {
+                request.setAttribute("firstName", firstName);
+                request.setAttribute("lastName", lastName);
+                request.setAttribute("password", password);
+                request.setAttribute("isActive", isActive);
+                request.setAttribute("emptiedField", true);
 
-                if (email == null || email.equals("")) { // email is mandatory to add a new user
-                    request.setAttribute("invalidUser", true);
-                    break;
-                }
+                getServletContext().getRequestDispatcher("/WEB-INF/signup.jsp").forward(request, response);
+                return;
+            }
 
-                String saveMode = request.getParameter("saveMode");
-                try {
-                    if ("addUser".equals(saveMode)) { // adding a new user
-                        accountService.insertUser(email, isActive, firstName, lastName, password, role);
-                        request.setAttribute("addMsg", true);
-                        request.setAttribute("emailAdded", email);
-                    } else if ("editUser".equals(saveMode)) { // editing the existing user
-                        accountService.updateUser(email, isActive, firstName, lastName, password, role);
-                        request.setAttribute("editMsg", true);
-                        request.setAttribute("emailedited", email);
-
-                    }
-                } catch (Exception ex) {
-                    Logger.getLogger(AdminServlet.class
-                            .getName()).log(Level.SEVERE, null, ex);
-                }
-                break;
+            try {
+                accountService.updateUser(email, isActive, firstName, lastName, password, role);
+            } catch (Exception ex) {
+                Logger.getLogger(SignupServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+        response.sendRedirect("inventory");
+
     }
 
 }
