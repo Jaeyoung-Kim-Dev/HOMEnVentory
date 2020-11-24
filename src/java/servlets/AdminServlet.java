@@ -8,9 +8,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Item;
 import models.Role;
 import models.User;
 import services.AccountService;
+import services.InventoryService;
 
 /**
  *
@@ -74,6 +76,15 @@ public class AdminServlet extends HttpServlet {
             case "deleteUser":
                 try {
                     accountService.deleteUser(email);
+                    
+                    User user = accountService.getUser(email);
+                    List<Item> itemList = user.getItemList();
+                    
+                    InventoryService InventoryService = new InventoryService();
+                    for (Item item: itemList) {
+                        InventoryService.deleteItem(item.getItemId());                        
+                    }
+                    
                     request.setAttribute("deleteMsg", true);
                     request.setAttribute("emailDeleted", email);
                 } catch (Exception ex) {
