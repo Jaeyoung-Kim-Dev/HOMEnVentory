@@ -153,8 +153,8 @@ public class InventoryServlet extends HttpServlet {
     private HttpServletRequest setLists(HttpServletRequest request, InventoryService inventoryService, String email) {
         try {
             List<Category> categories = inventoryService.getAllCategories();
-            AccountService as = new AccountService();
-            User user = as.getUser(email);
+            AccountService accountService = new AccountService();
+            User user = accountService.getUser(email);
             request.setAttribute("user", user);
             request.setAttribute("items", user.getItemList());
             request.setAttribute("categories", categories);

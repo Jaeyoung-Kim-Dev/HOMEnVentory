@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.Category;
 import models.Role;
 import models.User;
@@ -118,7 +119,13 @@ public class CategoryServlet extends HttpServlet {
      */
     private HttpServletRequest setLists(HttpServletRequest request, InventoryService inventoryService) {
         try {
-            List<Category> categories = inventoryService.getAllCategories();
+            HttpSession session = request.getSession();
+            String email = (String) session.getAttribute("email");
+            AccountService accountService = new AccountService();
+            User user = accountService.getUser(email);
+            request.setAttribute("user", user);
+            
+            List<Category> categories = inventoryService.getAllCategories();            
             request.setAttribute("categories", categories);
         } catch (Exception ex) {
             Logger.getLogger(AdminServlet.class

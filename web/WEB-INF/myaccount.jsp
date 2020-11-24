@@ -29,7 +29,7 @@
             <div class="col">
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">            
                     <div class="mr-3">
-                        <div class="navbar-brand">Menu</div>
+                        <div class="navbar-brand"><div class="baseColor p-1 pl-2 pr-2">${user.firstName} ${user.lastName}</div></div>
                     </div>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
