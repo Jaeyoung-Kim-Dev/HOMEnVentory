@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.Item;
 import models.Role;
 import models.User;
@@ -76,15 +77,15 @@ public class AdminServlet extends HttpServlet {
             case "deleteUser":
                 try {
                     accountService.deleteUser(email);
-                    
+
                     User user = accountService.getUser(email);
                     List<Item> itemList = user.getItemList();
-                    
+
                     InventoryService InventoryService = new InventoryService();
-                    for (Item item: itemList) {
-                        InventoryService.deleteItem(item.getItemId());                     
+                    for (Item item : itemList) {
+                        InventoryService.deleteItem(item.getItemId());
                     }
-                    
+
                     request.setAttribute("deleteMsg", true);
                     request.setAttribute("emailDeleted", email);
                 } catch (Exception ex) {
@@ -142,10 +143,16 @@ public class AdminServlet extends HttpServlet {
      */
     private HttpServletRequest setLists(HttpServletRequest request, AccountService accountService) {
         try {
+            HttpSession session = request.getSession();
+            String email = (String) session.getAttribute("email");
+
             List<User> users = accountService.getAllUser();
             List<Role> roles = accountService.getAllRoles();
+            User user = accountService.getUser(email);
+            
             request.setAttribute("users", users);
             request.setAttribute("roles", roles);
+            request.setAttribute("user", user);
         } catch (Exception ex) {
             Logger.getLogger(AdminServlet.class
                     .getName()).log(Level.SEVERE, null, ex);

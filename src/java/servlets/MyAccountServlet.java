@@ -29,7 +29,8 @@ public class MyAccountServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {        
+        AccountService accountService = new AccountService();
 
         String action = request.getParameter("action");
 
@@ -41,14 +42,14 @@ public class MyAccountServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
 
-        try {
-            AccountService accountService = new AccountService();
+        try {            
             User user = accountService.getUser(email);
             request.setAttribute("userToEdit", user);
         } catch (Exception ex) {
             Logger.getLogger(AdminServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        setLists(request, accountService, email);
         getServletContext().getRequestDispatcher("/WEB-INF/myaccount.jsp").forward(request, response);
     }
 
@@ -90,8 +91,22 @@ public class MyAccountServlet extends HttpServlet {
                 Logger.getLogger(SignupServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        setLists(request, accountService, email);
         response.sendRedirect("inventory");
+    }
 
+    /**
+     * Pass user, items and categories to inventory.jsp
+     */
+    private HttpServletRequest setLists(HttpServletRequest request, AccountService accountService, String email) {
+        try {
+            User user = accountService.getUser(email);
+            request.setAttribute("user", user);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminServlet.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+        return request;
     }
 
 }
