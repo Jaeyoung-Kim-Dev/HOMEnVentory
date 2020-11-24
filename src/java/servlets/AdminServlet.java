@@ -82,7 +82,7 @@ public class AdminServlet extends HttpServlet {
                     
                     InventoryService InventoryService = new InventoryService();
                     for (Item item: itemList) {
-                        InventoryService.deleteItem(item.getItemId());                        
+                        InventoryService.deleteItem(item.getItemId());                     
                     }
                     
                     request.setAttribute("deleteMsg", true);
@@ -101,7 +101,7 @@ public class AdminServlet extends HttpServlet {
                 int role = Integer.parseInt(request.getParameter("roleName"));
 
                 if (email == null || email.equals("")) { // email is mandatory to add a new user
-                    request.setAttribute("invalidUser", true);
+                    request.setAttribute("invalidMsg", true);
                     break;
                 }
 

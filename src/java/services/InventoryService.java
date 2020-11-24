@@ -51,7 +51,7 @@ public class InventoryService {
         User user = userDB.get(owner);
         item.setOwner(user);
 
-        CategoriesDB categoriesDB = new CategoriesDB();
+        CategoryDB categoriesDB = new CategoryDB();
         Category category = categoriesDB.get(categoryId);
         item.setCategory(category);
 
@@ -75,7 +75,7 @@ public class InventoryService {
         item.setItemName(itemName);
         item.setPrice(price);
 
-        CategoriesDB categoriesDB = new CategoriesDB();
+        CategoryDB categoriesDB = new CategoryDB();
         Category category = categoriesDB.get(categoryId);
         item.setCategory(category);
 
@@ -96,15 +96,58 @@ public class InventoryService {
     }
 
     /**
-     * Method that calls getAllCategories() in CategoriesDB
+     * Method that calls getAllCategories() in CategoryDB
      *
      * @return the List of Categories
      * @throws Exception if there is a Exception with PreparedStatements and
      * ResultSets
      */
     public List<Category> getAllCategories() throws Exception {
-        CategoriesDB categoriesDB = new CategoriesDB();
+        CategoryDB categoriesDB = new CategoryDB();
         List<Category> categories = categoriesDB.getAll();
         return categories;
+    }
+    
+    /**
+     * Method that calls getItem() in ItemsDB and forwards the item id to search
+     * for
+     *
+     * @param itemId the id of the item to search for
+     * @return the Item found
+     * @throws Exception if there is a Exception with PreparedStatements and
+     * ResultSets
+     */
+    public Category getCategory(int categoryId) throws Exception {
+        CategoryDB categoryDB = new CategoryDB();
+        Category category = categoryDB.get(categoryId);
+        return category;
+    }
+
+    /**
+     * Method that calls insertCategory() in CategoryDB
+     *
+     * @param categoryName category name
+     * @throws Exception if there is a Exception with PreparedStatements and
+     * ResultSets
+     */
+    public void insertCategory(String categoryName) throws Exception {
+        Category category = new Category(0, categoryName);
+        CategoryDB categoryDB = new CategoryDB();
+        categoryDB.insert(category);
+    }
+
+    /**
+     * Method that calls updateCategory() in CategoryDB
+     *     
+     * @param categoryId item category id
+     * @param categoryName category name
+     * @throws Exception if there is a Exception with PreparedStatements and
+     * ResultSets
+     */
+    public void updateCategory(int categoryId, String categoryName) throws Exception {
+        CategoryDB categoryDB = new CategoryDB();
+        Category category = categoryDB.get(categoryId);
+        category.setCategoryName(categoryName);
+        categoryDB.update(category);
     }
 }

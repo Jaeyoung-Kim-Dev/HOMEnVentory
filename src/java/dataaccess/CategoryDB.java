@@ -17,7 +17,7 @@ import models.User;
  *
  * @author kornk
  */
-public class CategoriesDB {
+public class CategoryDB {
 
     /**
      * Method that returns all rows in the User table
@@ -54,5 +54,33 @@ public class CategoriesDB {
         }
     }
     
-    
+    public void insert(Category category) throws Exception {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+
+        try {                        
+            trans.begin();
+            em.persist(category);
+            trans.commit();
+        } catch (Exception ex) {
+            trans.rollback();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void update(Category category) throws Exception {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+
+        try {
+            trans.begin();
+            em.merge(category);
+            trans.commit();
+        } catch (Exception ex) {
+            trans.rollback();
+        } finally {
+            em.close();
+        }
+    }
 }

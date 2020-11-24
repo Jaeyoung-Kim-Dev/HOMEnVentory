@@ -20,7 +20,7 @@
 
         <div class="row ml-5 mr-5 mt-3">
             <div class="col  text-white">
-                <h1>Home Inventory</h1>
+                <h1>Home eVentory</h1>
             </div>
         </div>
         <div class="row ml-5 mr-5 mt-3">
