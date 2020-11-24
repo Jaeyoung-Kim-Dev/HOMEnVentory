@@ -20,7 +20,7 @@
 
         <div class="row ml-5 mr-5 mt-3">
             <div class="col  text-white">
-                <h1>Home Inventory</h1>
+                <h1>Home eVentory</h1>
             </div>
         </div>
         <div class="row ml-5 mr-5 mt-3">
@@ -35,7 +35,10 @@
                                 <a class="nav-link" href="inventory">Inventory</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="admin">Admin</a>
+                                <a class="nav-link" href="admin">Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="category">Category</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="login?logout">Logout</a>
@@ -194,7 +197,7 @@
                                     </div>
                                 </div>
                             </c:when>
-                            <c:when test="${invalidUser == true}">
+                            <c:when test="${invalidMsg == true}">
                                 <div class="card  bg-danger text-white"> <%-- left card for user form --%>
                                     <div class="card-header">Message:</div>
                                     <div class="card-body">                               
