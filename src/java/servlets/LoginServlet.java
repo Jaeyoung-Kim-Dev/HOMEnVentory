@@ -66,7 +66,8 @@ public class LoginServlet extends HttpServlet {
         }
 
         AccountService as = new AccountService();
-        User user = as.login(email, password);
+        String path = getServletContext().getRealPath("/WEB-INF");
+        User user = as.login(email, password, path);
         if (user == null) {
             request.setAttribute("invalid", true);
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);

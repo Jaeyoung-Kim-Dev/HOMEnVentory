@@ -87,11 +87,11 @@ INSERT INTO `user` (`email`,`active`,`first_name`,`last_name`,`password`,`role`)
 INSERT INTO `user` (`email`,`active`,`first_name`,`last_name`,`password`,`role`)
 	VALUES ('jones.matthew@calgary.ca', true, 'Jones','Matthew', 'password', 2);
 INSERT INTO `user` (`email`,`active`,`first_name`,`last_name`,`password`,`role`)
-	VALUES ('ethan.gervais@calgary.ca', true, 'Ethan','Gervais', 'password', 2);
+	VALUES ('ethan.gervais@calgary.ca', false, 'Ethan','Gervais', 'password', 2);
 INSERT INTO `user` (`email`,`active`,`first_name`,`last_name`,`password`,`role`)
 	VALUES ('naeun.kim@calgary.ca', false, 'Naeun','Kim', 'password', 2);
 INSERT INTO `user` (`email`,`active`,`first_name`,`last_name`,`password`,`role`)
-	VALUES ('jaeyoung.kim@calgary.ca', false, 'Jaeyoung','Kim', 'password', 2);
+	VALUES ('jaeyoung.kim.test@gmail.com', true, 'Jaeyoung','Kim', 'password', 2);
 INSERT INTO `user` (`email`,`active`,`first_name`,`last_name`,`password`,`role`)
 	VALUES ('aaron.warsylewicz@calgary.ca', false, 'Aaron','Warsylewicz', 'password', 2);
 
