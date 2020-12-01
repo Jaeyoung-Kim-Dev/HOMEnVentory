@@ -90,8 +90,9 @@ public class SignupServlet extends HttpServlet {
             Logger.getLogger(SignupServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        try {
-            accountService.insertUser(email, true, firstName, lastName, password, 2);
+        try {            
+            String path = getServletContext().getRealPath("/WEB-INF");
+            accountService.insertUser(email, true, firstName, lastName, password, 2, true, path);
         } catch (Exception ex) {
             Logger.getLogger(SignupServlet.class.getName()).log(Level.SEVERE, null, ex);
         }  

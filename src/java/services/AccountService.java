@@ -2,18 +2,40 @@ package services;
 
 import dataaccess.RoleDB;
 import dataaccess.UserDB;
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Role;
 import models.User;
 
 public class AccountService {
 
-    public User login(String email, String password) {
+    /**
+     * 
+     * @param email
+     * @param password
+     * @param path
+     * @return 
+     */
+    public User login(String email, String password, String path) {
         UserDB userDB = new UserDB();
 
         try {
             User user = userDB.get(email);
             if (password.equals(user.getPassword())) {
+                Logger.getLogger(AccountService.class.getName()).log(Level.INFO, "Successful login by {0}", email);
+
+                String to = user.getEmail();
+                String subject = "HOME nVentory Login";
+                String template = path + "/emailtemplates/login.html";
+
+                HashMap<String, String> tags = new HashMap<>();
+                tags.put("firstname", user.getFirstName());
+                tags.put("lastname", user.getLastName());
+                tags.put("date", (new java.util.Date()).toString());
+
+                GmailService.sendMail(to, subject, template, tags);
                 return user;
             }
         } catch (Exception e) {
@@ -59,10 +81,12 @@ public class AccountService {
      * @param lastName user last name
      * @param password user password
      * @param roleId user role id
+     * @param newUser check if new user to send to welcome email
+     * @param path path of the email form
      * @throws Exception if there is a Exception with PreparedStatements and
      * ResultSets
      */
-    public void insertUser(String email, boolean active, String firstName, String lastName, String password, int roleId) throws Exception {
+    public void insertUser(String email, boolean active, String firstName, String lastName, String password, int roleId, boolean newUser, String path) throws Exception {
         User user = new User(email, active, firstName, lastName, password);
 
         RoleDB roleDB = new RoleDB();
@@ -71,6 +95,21 @@ public class AccountService {
 
         UserDB userDB = new UserDB();
         userDB.insert(user);
+
+        if (newUser) {
+            Logger.getLogger(AccountService.class.getName()).log(Level.INFO, "New registered user {0}", email);
+
+            String to = user.getEmail();
+            String subject = "Register for HOME nVentory";
+            String template = path + "/emailtemplates/register.html";
+
+            HashMap<String, String> tags = new HashMap<>();
+            tags.put("firstname", user.getFirstName());
+            tags.put("lastname", user.getLastName());
+            tags.put("date", (new java.util.Date()).toString());
+
+            GmailService.sendMail(to, subject, template, tags);
+        }
     }
 
     /**

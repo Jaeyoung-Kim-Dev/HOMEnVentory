@@ -109,7 +109,7 @@ public class AdminServlet extends HttpServlet {
                 String saveMode = request.getParameter("saveMode");
                 try {
                     if ("addUser".equals(saveMode)) { // adding a new user
-                        accountService.insertUser(email, isActive, firstName, lastName, password, role);
+                        accountService.insertUser(email, isActive, firstName, lastName, password, role, false, null);
                         request.setAttribute("addMsg", true);
                         request.setAttribute("emailAdded", email);
                     } else if ("editUser".equals(saveMode)) { // editing the existing user
