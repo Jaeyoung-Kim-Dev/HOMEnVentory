@@ -30,7 +30,7 @@ public class InventoryService {
      */
     public Item getItem(int itemId) throws Exception {
         ItemsDB itemsDB = new ItemsDB();
-        Item item = itemsDB.get(itemId);
+        Item item = itemsDB.get(itemId);        
         return item;
     }
 

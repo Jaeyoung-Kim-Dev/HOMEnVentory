@@ -152,10 +152,10 @@
                                 </div>
                             </c:when>
                             <c:when test="${notOwnerMsg == true}">
-                                <div class="card  bg-dark text-white"> <%-- left card for user form --%>
+                                <div class="card  bg-danger text-white"> <%-- left card for user form --%>
                                     <div class="card-header">Message:</div>
                                     <div class="card-body">                               
-                                        <p>The <span class="text-danger">${itemDeleted}</span> is not your item. You cannot <span class="text-danger">delete</span> it.</p>                                
+                                        <p>The <span class="text-danger">${itemDeleted}</span> is not your item. You cannot edit it.</p>                                
                                     </div>
                                 </div>
                             </c:when>
@@ -167,7 +167,14 @@
                                     </div>
                                 </div>
                             </c:when>
-
+                            <c:when test="${invalidPriceMsg == true}">
+                                <div class="card  bg-danger text-white"> <%-- left card for user form --%>
+                                    <div class="card-header">Message:</div>
+                                    <div class="card-body">                               
+                                        <p>Price should consist only of numbers.</p>                                
+                                    </div>
+                                </div>
+                            </c:when>
                         </c:choose>    
                     </div> <%-- col --%>
                 </div>  <%-- row --%>

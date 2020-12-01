@@ -51,8 +51,15 @@ public class InventoryServlet extends HttpServlet {
                     try {
                         int itemId = Integer.parseInt(request.getParameter("itemId"));
                         Item item = inventoryService.getItem(itemId);
-                        request.setAttribute("itemToEdit", item);
-                        request.setAttribute("editItem", true);
+                        
+                        if (item.getOwner().getEmail().equals(email)) { //check if the item is belongs to the owner.
+                            request.setAttribute("itemToEdit", item);
+                            request.setAttribute("editItem", true);
+                        } else {
+                            request.setAttribute("notOwnerMsg", true);
+                            request.setAttribute("enableForm", false);
+                            request.setAttribute("cancelForm", false);
+                        }
                     } catch (Exception ex) {
                         Logger.getLogger(AdminServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -112,10 +119,9 @@ public class InventoryServlet extends HttpServlet {
                     break;
                 }
 
-                double price = Double.parseDouble(priceString);
-
                 String saveMode = request.getParameter("saveMode");
                 try {
+                    double price = Double.parseDouble(priceString);
                     if ("addItem".equals(saveMode)) { // adding a new item
                         inventoryService.insertItem(itemName, price, email, category);
                         request.setAttribute("addMsg", true);
@@ -126,6 +132,10 @@ public class InventoryServlet extends HttpServlet {
                         request.setAttribute("editMsg", true);
                         request.setAttribute("itemEdited", itemName);
                     }
+                } catch (NumberFormatException ex) {    // if price is String value.
+                    request.setAttribute("invalidPriceMsg", true);
+                    Logger.getLogger(AdminServlet.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 } catch (Exception ex) {
                     Logger.getLogger(AdminServlet.class
                             .getName()).log(Level.SEVERE, null, ex);
