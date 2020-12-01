@@ -11,27 +11,6 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/web/WEB-INF/login.jsp</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/web/WEB-INF/signup.jsp</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/servlets/InventoryServlet.java</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/dataaccess/UserDB.java</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/web/WEB-INF/myaccount.jsp</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/servlets/MyAccountServlet.java</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/servlets/SignupServlet.java</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/web/WEB-INF/admin.jsp</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/servlets/AdminServlet.java</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/models/Item.java</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/servlets/LoginServlet.java</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/web/WEB-INF/inventory.jsp</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/models/Category.java</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/servlets/CategoryServlet.java</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/dataaccess/ItemsDB.java</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/database/inventorydb.sql</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/services/AccountService.java</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/dataaccess/CategoryDB.java</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/web/WEB-INF/category.jsp</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/services/InventoryService.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

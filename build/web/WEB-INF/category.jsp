@@ -45,7 +45,7 @@
                 </nav>
             </div>
         </div>
-
+                    
         <div class="row m-5">
             <div class="col-3">
                 <div class="row">
@@ -140,7 +140,7 @@
                     </div> <%-- col --%>
                 </div>  <%-- row --%>
             </div> <%-- col --%>
-            <div class="col-9">
+            <div class="col-4">
                 <div class="card bg-dark text-white">  <%-- right card for user manage users form --%>
                     <h1 class="card-header">Manage Categories</h1>
                     <div class="card-body">
