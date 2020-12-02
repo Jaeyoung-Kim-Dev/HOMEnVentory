@@ -1,10 +1,7 @@
-<%--
-    This is jsp includes html for our web page. It's connected with style.css under same WEB-INF folder.
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1"> <!--fits on mobile device screen-->
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -25,12 +22,14 @@
         </div>
          <div class="row ml-5 mr-5 mt-3">
             <div class="col">
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">            
-                    <div class="mr-3">
-                        <div class="navbar-brand"><div class="baseColor p-1 pl-2 pr-2">${user.firstName} ${user.lastName}</div></div>
-                    </div>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <a class="navbar-brand" href="login"><div class="baseColor p-1 pl-2 pr-2">${user.firstName} ${user.lastName}</div></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
                                 <a class="nav-link" href="admin">Users</a>
                             </li>
@@ -39,8 +38,8 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="login?logout">Logout</a>
-                            </li>
-                        </ul>
+                            </li>                          
+                        </ul>                        
                     </div>
                 </nav>
             </div>
