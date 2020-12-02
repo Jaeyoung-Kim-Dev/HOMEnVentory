@@ -26,19 +26,18 @@ public class SignupServlet extends HttpServlet {
 
         AccountService as = new AccountService();
         String uuid = request.getParameter("uuid");
-        
+
         if (uuid != null) { // check if it is verification email
-            boolean validUuid = as.registerUser(uuid);
-            if (validUuid) {
+            String path = getServletContext().getRealPath("/WEB-INF");
+            boolean validUuid = as.registerUser(uuid, path);
+            if (validUuid) { // valid verification uuid
                 request.setAttribute("userVerifiedMsg", true);
                 getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-            }
-        } else {
-            String action = request.getParameter("action");
-
-            if ("cancel".equals(action)) { // default display or when the press the "Cancel" button of the user form
+            } else { // invalid verification uuid
+                request.setAttribute("expiredLink", true);
                 getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             }
+        } else {    // forward to signup form
             getServletContext().getRequestDispatcher("/WEB-INF/signup.jsp").forward(request, response);
         }
     }
