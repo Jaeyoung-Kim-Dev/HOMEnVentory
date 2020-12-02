@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -30,45 +24,37 @@ public class SignupServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.invalidate();
 
-//        String email = (String) session.getAttribute("email");
-//
-//        AccountService as = new AccountService();
-//        User user = null;
-//        try {
-//            user = as.getUser(email);
-//        } catch (Exception ex) {
-//            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        String action = request.getParameter("action");
+        AccountService as = new AccountService();
+        String uuid = request.getParameter("uuid");
+        
+        if (uuid != null) { // check if it is verification email
+            boolean validUuid = as.registerUser(uuid);
+            if (validUuid) {
+                request.setAttribute("userVerifiedMsg", true);
+                getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            }
+        } else {
+            String action = request.getParameter("action");
 
-        if ("cancel".equals(action)) { // default display or when the press the "Cancel" button of the user form
-            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            if ("cancel".equals(action)) { // default display or when the press the "Cancel" button of the user form
+                getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            }
+            getServletContext().getRequestDispatcher("/WEB-INF/signup.jsp").forward(request, response);
         }
-
-        getServletContext().getRequestDispatcher("/WEB-INF/signup.jsp").forward(request, response);
-
-        // forward to the login page, but redirect to inventory or admin page if a user signed in.
-//        if (email == null) {
-//            getServletContext().getRequestDispatcher("/WEB-INF/signup.jsp").forward(request, response);
-//        } else if (user.getRole().getRoleId() == 1) {
-//            response.sendRedirect("admin");
-//        } else {
-//            response.sendRedirect("inventory");
-//        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        AccountService accountService = new AccountService();
+        AccountService as = new AccountService();
 
         String email = request.getParameter("email");
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String password = request.getParameter("password");
 
-        //validates that user name and password are not empty
-        if (email == null || email.equals("") || firstName == null || firstName.equals("")|| lastName == null || lastName.equals("")|| password == null || password.equals("")) {
+        //check if user name and password are not empty
+        if (email == null || email.equals("") || firstName == null || firstName.equals("") || lastName == null || lastName.equals("") || password == null || password.equals("")) {
             request.setAttribute("email", email);
             request.setAttribute("firstName", firstName);
             request.setAttribute("lastName", lastName);
@@ -79,9 +65,10 @@ public class SignupServlet extends HttpServlet {
             return;
         }
 
+        //check if user name is already exist
         try {
-            User exsitingUser = accountService.getUser(email);
-            
+            User exsitingUser = as.getUser(email);
+
             if (exsitingUser != null) {
                 request.setAttribute("exsitingUser", true);
                 getServletContext().getRequestDispatcher("/WEB-INF/signup.jsp").forward(request, response);
@@ -89,17 +76,17 @@ public class SignupServlet extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(SignupServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        try {            
+
+        //add a new user as inactive and send user a email to verify
+        try {
             String path = getServletContext().getRealPath("/WEB-INF");
-            accountService.insertUser(email, true, firstName, lastName, password, 2, true, path);
+            String url = request.getRequestURL().toString(); // to get the current URL
+            as.insertUser(email, false, firstName, lastName, password, 2, true, path, url);
         } catch (Exception ex) {
             Logger.getLogger(SignupServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }  
-        
-        HttpSession session = request.getSession();
-        session.setAttribute("email", email);
+        }
 
-        response.sendRedirect("inventory");        
+        request.setAttribute("verifyEmailSent", true);
+        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 }

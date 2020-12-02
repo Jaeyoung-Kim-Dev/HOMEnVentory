@@ -49,6 +49,28 @@ public class UserDB {
         }
     }
 
+    public User getByEmailVerifyUUID(String uuid) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+
+        try {
+            User user = em.createNamedQuery("User.findByEmailVerifyUuid", User.class).setParameter("emailVerifyUuid", uuid).getSingleResult();
+            return user;
+        } finally {
+            em.close();
+        }
+    }
+    
+    public User getByResetPasswordUUID(String uuid) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+
+        try {
+            User user = em.createNamedQuery("User.findByResetPasswordUuid", User.class).setParameter("resetPasswordUuid", uuid).getSingleResult();
+            return user;
+        } finally {
+            em.close();
+        }
+    }
+
     /**
      * Method that inserts a new User into the User table
      *

@@ -35,7 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active")
     , @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName")
     , @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName")
-    , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
+    , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
+    , @NamedQuery(name = "User.findByEmailVerifyUuid", query = "SELECT u FROM User u WHERE u.emailVerifyUuid = :emailVerifyUuid")
+    , @NamedQuery(name = "User.findByResetPasswordUuid", query = "SELECT u FROM User u WHERE u.resetPasswordUuid = :resetPasswordUuid")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,6 +57,10 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
+    @Column(name = "email_verify_uuid")
+    private String emailVerifyUuid;
+    @Column(name = "reset_password_uuid")
+    private String resetPasswordUuid;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)
     private List<Item> itemList;
     @JoinColumn(name = "role", referencedColumnName = "role_id")
@@ -114,6 +120,22 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmailVerifyUuid() {
+        return emailVerifyUuid;
+    }
+
+    public void setEmailVerifyUuid(String emailVerifyUuid) {
+        this.emailVerifyUuid = emailVerifyUuid;
+    }
+
+    public String getResetPasswordUuid() {
+        return resetPasswordUuid;
+    }
+
+    public void setResetPasswordUuid(String resetPasswordUuid) {
+        this.resetPasswordUuid = resetPasswordUuid;
     }
 
     @XmlTransient
