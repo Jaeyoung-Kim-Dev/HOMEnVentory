@@ -1,9 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : Nov 10, 2020, 12:35:00 AM
-    Author     : kornk
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -37,9 +31,8 @@
                     <input type="submit" value="Save" class="btn btn-success btn-block">
                 </form>
                 <br>
-                <form method="get" action="signup">                                    
-                    <input type="submit" value="Cancel" class="btn btn-secondary btn-block">
-                    <input type="hidden" name="action" value="cancel">                                                                             
+                <form method="get" action="login">                                    
+                    <input type="submit" value="Cancel" class="btn btn-secondary btn-block">                    
                 </form> 
                 <br>
                 <c:choose>

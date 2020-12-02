@@ -3,6 +3,7 @@ package dataaccess;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import models.Role;
 import models.User;
 
@@ -55,17 +56,21 @@ public class UserDB {
         try {
             User user = em.createNamedQuery("User.findByEmailVerifyUuid", User.class).setParameter("emailVerifyUuid", uuid).getSingleResult();
             return user;
+        } catch (NoResultException ex) {
+            return null;
         } finally {
             em.close();
         }
     }
-    
+
     public User getByResetPasswordUUID(String uuid) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
 
         try {
             User user = em.createNamedQuery("User.findByResetPasswordUuid", User.class).setParameter("resetPasswordUuid", uuid).getSingleResult();
             return user;
+        } catch (NoResultException ex) {
+            return null;
         } finally {
             em.close();
         }

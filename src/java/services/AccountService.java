@@ -22,7 +22,7 @@ public class AccountService {
     public User login(String email, String password, String path) {
         UserDB userDB = new UserDB();
         User user = userDB.get(email);
-        
+
         try {
             if (password.equals(user.getPassword()) && user.getActive()) {
                 Logger.getLogger(AccountService.class.getName()).log(Level.INFO, "Successful login by {0}", email);
@@ -37,6 +37,11 @@ public class AccountService {
                 tags.put("date", (new java.util.Date()).toString());
 
                 GmailService.sendMail(to, subject, template, tags);
+
+                // if user didn't change password with email link and login, make the link invalid
+                user.setResetPasswordUuid(null);
+                userDB.update(user);
+
                 return user;
             }
         } catch (Exception e) {
@@ -119,13 +124,25 @@ public class AccountService {
         }
     }
 
-    public boolean registerUser(String uuid) {
+    public boolean registerUser(String uuid, String path) {
         UserDB userDB = new UserDB();
         try {
             User user = userDB.getByEmailVerifyUUID(uuid);
             user.setActive(true);
             user.setEmailVerifyUuid(null);
             userDB.update(user);
+
+            String to = user.getEmail();
+            String subject = "Welcome to HOME nVentory";
+            String template = path + "/emailtemplates/welcome.html";
+
+            HashMap<String, String> tags = new HashMap<>();
+            tags.put("firstname", user.getFirstName());
+            tags.put("lastname", user.getLastName());
+
+            GmailService.sendMail(to, subject, template, tags);
+
+            Logger.getLogger(AccountService.class.getName()).log(Level.INFO, "Successful welcome email sent to {0}", to);
             return true;
         } catch (Exception ex) {
             return false;

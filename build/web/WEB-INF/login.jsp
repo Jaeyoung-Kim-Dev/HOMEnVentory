@@ -25,8 +25,7 @@
             <div class="jumbotron bg-dark text-white">
                 <form method="post" action="login">
                     <h1 class="text-center">Home eVentory</h1>
-                    <br>
-                    <br>
+                    <br><br>                    
                     <div class="input-group mb-3">
                         <div class="input-group-prepend ">
                             <span class="input-group-text baseColor">Username</span>
@@ -56,6 +55,12 @@
                         <c:when test="${verifyEmailSent == true}">
                             <p>Verification email sent. Please check your email and click the link.</p>
                         </c:when>
+                        <c:when test="${resetEmailSent == true}">
+                            <p>Reset link has been sent to your email.</p>
+                        </c:when>                        
+                        <c:when test="${expiredLink == true}">
+                            <p>This link is invalid or expired.</p>
+                        </c:when>
                         <c:when test="${logout == true}">
                             <p>The user has successfully logged out.</p>
                         </c:when>
@@ -66,7 +71,7 @@
                     <input type="submit" class="btn btn-success btn-block" value="Sign Up">
                 </form>
                 <br>
-                <form method="post" action="forgot">
+                <form method="get" action="reset">
                     <input type="submit" class="btn btn-warning btn-block" value="Forgot Password">
                 </form>
             </div>
