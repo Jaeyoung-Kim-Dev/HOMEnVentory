@@ -48,14 +48,20 @@
                             <p>Invalid entry. Please enter both your username and password.</p>
                         </c:when>
                         <c:when test="${invalid == true}">
-                            <p>Invalid login</p>
+                            <p>Invalid login or email is not verified.</p>
+                        </c:when>
+                        <c:when test="${userVerifiedMsg == true}">
+                            <p>Email is verified. Please login.</p>
+                        </c:when>
+                        <c:when test="${verifyEmailSent == true}">
+                            <p>Verification email sent. Please check your email and click the link.</p>
                         </c:when>
                         <c:when test="${logout == true}">
                             <p>The user has successfully logged out.</p>
                         </c:when>
                     </c:choose>
                 </form>
-                    <br>
+                <br>
                 <form method="get" action="signup">
                     <input type="submit" class="btn btn-success btn-block" value="Sign Up">
                 </form>

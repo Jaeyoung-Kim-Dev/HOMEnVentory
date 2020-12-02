@@ -14,7 +14,7 @@
             <p>Email Address: <input type="text" name="email" value="${email}"></p>
             <input type="submit" value="Submit">
         </form>
-        <c:if test="${emailSent eq true}"><p>Reset link has been sent to your email</p></c:if>
+        <c:if test="${resetEmailSent eq true}"><p>Reset link has been sent to your email</p></c:if>
         <c:if test="${passwordChanged eq true}"><p>Password has been successfully changed. Please <a href="login">Login</a>.</p></c:if>
     </body>
 </html>

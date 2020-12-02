@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        //validates that user name and password are not empty
+        //check if user name and password are not empty
         if (email == null || email.equals("") || password == null || password.equals("")) {
             request.setAttribute("email", email);
             request.setAttribute("password", password);
@@ -65,6 +65,7 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
+        // check if login is valid or not
         AccountService as = new AccountService();
         String path = getServletContext().getRealPath("/WEB-INF");
         User user = as.login(email, password, path);
@@ -74,9 +75,11 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
+        // set email session with a valid login
         HttpSession session = request.getSession();
         session.setAttribute("email", email);
 
+        // system admin redirects 'admin' otherwise 'inventory'
         if (user.getRole().getRoleId() == 1) {
             response.sendRedirect("admin");
         } else {

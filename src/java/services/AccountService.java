@@ -4,6 +4,7 @@ import dataaccess.RoleDB;
 import dataaccess.UserDB;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Role;
@@ -12,18 +13,18 @@ import models.User;
 public class AccountService {
 
     /**
-     * 
+     *
      * @param email
      * @param password
      * @param path
-     * @return 
+     * @return
      */
     public User login(String email, String password, String path) {
         UserDB userDB = new UserDB();
-
+        User user = userDB.get(email);
+        
         try {
-            User user = userDB.get(email);
-            if (password.equals(user.getPassword())) {
+            if (password.equals(user.getPassword()) && user.getActive()) {
                 Logger.getLogger(AccountService.class.getName()).log(Level.INFO, "Successful login by {0}", email);
 
                 String to = user.getEmail();
@@ -40,7 +41,6 @@ public class AccountService {
             }
         } catch (Exception e) {
         }
-
         return null;
     }
 
@@ -83,10 +83,11 @@ public class AccountService {
      * @param roleId user role id
      * @param newUser check if new user to send to welcome email
      * @param path path of the email form
+     * @param url
      * @throws Exception if there is a Exception with PreparedStatements and
      * ResultSets
      */
-    public void insertUser(String email, boolean active, String firstName, String lastName, String password, int roleId, boolean newUser, String path) throws Exception {
+    public void insertUser(String email, boolean active, String firstName, String lastName, String password, int roleId, boolean newUser, String path, String url) throws Exception {
         User user = new User(email, active, firstName, lastName, password);
 
         RoleDB roleDB = new RoleDB();
@@ -102,13 +103,32 @@ public class AccountService {
             String to = user.getEmail();
             String subject = "Register for HOME nVentory";
             String template = path + "/emailtemplates/register.html";
+            String uuid = UUID.randomUUID().toString();
+            String link = url + "?uuid=" + uuid;
+
+            user.setEmailVerifyUuid(uuid);
+            userDB.update(user);
 
             HashMap<String, String> tags = new HashMap<>();
             tags.put("firstname", user.getFirstName());
             tags.put("lastname", user.getLastName());
+            tags.put("link", link);
             tags.put("date", (new java.util.Date()).toString());
 
             GmailService.sendMail(to, subject, template, tags);
+        }
+    }
+
+    public boolean registerUser(String uuid) {
+        UserDB userDB = new UserDB();
+        try {
+            User user = userDB.getByEmailVerifyUUID(uuid);
+            user.setActive(true);
+            user.setEmailVerifyUuid(null);
+            userDB.update(user);
+            return true;
+        } catch (Exception ex) {
+            return false;
         }
     }
 
@@ -164,5 +184,44 @@ public class AccountService {
         RoleDB roleDB = new RoleDB();
         List<Role> roles = roleDB.getAll();
         return roles;
+    }
+
+    public boolean resetPassword(String email, String path, String url) {
+        UserDB userDB = new UserDB();
+
+        try {
+            User user = userDB.get(email);
+            String to = user.getEmail();
+            String subject = "HOME nVentory Reset Password";
+            String template = path + "/emailtemplates/resetpassword.html";
+            String uuid = UUID.randomUUID().toString();
+            String link = url + "?uuid=" + uuid;
+
+            user.setResetPasswordUuid(uuid);
+            userDB.update(user);
+
+            HashMap<String, String> tags = new HashMap<>();
+            tags.put("firstname", user.getFirstName());
+            tags.put("lastname", user.getLastName());
+            tags.put("link", link);
+
+            GmailService.sendMail(to, subject, template, tags);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
+    public boolean changePassword(String uuid, String password) {
+        UserDB userDB = new UserDB();
+        try {
+            User user = userDB.getByResetPasswordUUID(uuid);
+            user.setPassword(password);
+            user.setResetPasswordUuid(null);
+            userDB.update(user);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 }
