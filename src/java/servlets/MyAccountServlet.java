@@ -29,7 +29,7 @@ public class MyAccountServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {        
+            throws ServletException, IOException {
         AccountService accountService = new AccountService();
 
         String action = request.getParameter("action");
@@ -42,7 +42,7 @@ public class MyAccountServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
 
-        try {            
+        try {
             User user = accountService.getUser(email);
             request.setAttribute("userToEdit", user);
         } catch (Exception ex) {
@@ -62,7 +62,6 @@ public class MyAccountServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         AccountService accountService = new AccountService();
-        String action = request.getParameter("action");
 
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
@@ -72,25 +71,25 @@ public class MyAccountServlet extends HttpServlet {
         boolean isActive = ("active".equals(request.getParameter("isActive")));
         int role = Integer.parseInt(request.getParameter("roleName"));
 
-        if ("saveUser".equals(action)) {
-            //validates that user name and password are not empty
-            if (firstName == null || firstName.equals("") || lastName == null || lastName.equals("") || password == null || password.equals("")) {
-                request.setAttribute("firstName", firstName);
-                request.setAttribute("lastName", lastName);
-                request.setAttribute("password", password);
-                request.setAttribute("isActive", isActive);
-                request.setAttribute("emptiedField", true);
-
-                getServletContext().getRequestDispatcher("/WEB-INF/signup.jsp").forward(request, response);
-                return;
-            }
-
+        //validates that user name and password are not empty
+        if (firstName == null || firstName.equals("") || lastName == null || lastName.equals("") || password == null || password.equals("")) {
             try {
-                accountService.updateUser(email, isActive, firstName, lastName, password, role);
+                User user = accountService.getUser(email);
+                request.setAttribute("emptiedField", true);
+                request.setAttribute("userToEdit", user);
+                getServletContext().getRequestDispatcher("/WEB-INF/myaccount.jsp").forward(request, response);
             } catch (Exception ex) {
-                Logger.getLogger(SignupServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                Logger.getLogger(MyAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }            
+            return;
         }
+
+        try {
+            accountService.updateUser(email, isActive, firstName, lastName, password, role);
+        } catch (Exception ex) {
+            Logger.getLogger(SignupServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         setLists(request, accountService, email);
         response.sendRedirect("inventory");
     }
