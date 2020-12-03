@@ -24,7 +24,7 @@
                         <div class="input-group-prepend ">
                             <span class="input-group-text baseColor">Username</span>
                         </div>
-                        <input type="email" class="form-control" name="email" value="cprg352+anne@gmail.com">  <%-- value="${email}"> --%>
+                        <input type="email" class="form-control" name="email" value="cprg352+admin@gmail.com">  <%-- value="${email}"> --%>
                     </div>
 
                     <div class="input-group mb-3">

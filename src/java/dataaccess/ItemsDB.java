@@ -43,13 +43,13 @@ public class ItemsDB {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
 
         try {
-            List<Item> items = em.createNamedQuery("Item.findAll", Item.class).getResultList();
+            List<Item> items = em.createNamedQuery("Item.findByItemNameLike", Item.class).setParameter("itemName", "%" + itemName + "%").getResultList();
             return items;
         } finally {
             em.close();
         }
     }
-    
+
     public void insert(Item item) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();

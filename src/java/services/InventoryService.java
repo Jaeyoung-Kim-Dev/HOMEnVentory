@@ -35,6 +35,21 @@ public class InventoryService {
     }
 
     /**
+     * Method that calls searchItem() in ItemsDB and forwards the item id to search
+     * for
+     *
+     * @param itemName the name of the item to search for
+     * @return the Item found
+     * @throws Exception if there is a Exception with PreparedStatements and
+     * ResultSets
+     */
+    public List<Item> searchItem(String itemName) throws Exception {
+        ItemsDB itemsDB = new ItemsDB();
+        List<Item> items = itemsDB.search(itemName);        
+        return items;
+    }
+    
+    /**
      * Method that calls insertItem() in ItemsDB
      *
      * @param itemName item name

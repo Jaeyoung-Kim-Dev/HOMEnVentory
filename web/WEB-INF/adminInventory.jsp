@@ -57,10 +57,10 @@
                             <div class="card  bg-dark text-white"> <%-- left card for user form --%>
                                 <h1 class="card-header">Search Item</h1>
                                 <div class="card-body">                                    
-                                    <form method="post" action="admininventory">
+                                    <form method="get" action="admininventory">
                                         <c:choose>
                                             <c:when test="${enableForm == false}">                                                                                                                                                                            
-                                                <input type="text" name="search" placeholder="Item name" class="form-control bg-dark text-white">
+                                                <input type="text" name="searchKeyword" placeholder="Item name" class="form-control bg-dark text-white" value="${searchKeyword}">
                                                 <br>                                                
                                                 <input type="submit" value="Search" class="btn btn-success btn-block">
                                                 <input type="hidden" name="action" value="searchItem">                               
