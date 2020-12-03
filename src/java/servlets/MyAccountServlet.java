@@ -50,7 +50,7 @@ public class MyAccountServlet extends HttpServlet {
         }
 
         setLists(request, accountService, email);
-        getServletContext().getRequestDispatcher("/WEB-INF/myaccount.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/myAccount.jsp").forward(request, response);
     }
 
     /**
@@ -77,7 +77,7 @@ public class MyAccountServlet extends HttpServlet {
                 User user = accountService.getUser(email);
                 request.setAttribute("emptiedField", true);
                 request.setAttribute("userToEdit", user);
-                getServletContext().getRequestDispatcher("/WEB-INF/myaccount.jsp").forward(request, response);
+                getServletContext().getRequestDispatcher("/WEB-INF/myAccount.jsp").forward(request, response);
             } catch (Exception ex) {
                 Logger.getLogger(MyAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
             }            

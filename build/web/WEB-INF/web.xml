@@ -72,6 +72,10 @@
         <servlet-name>ResetPasswordServlet</servlet-name>
         <servlet-class>servlets.ResetPasswordServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminInventoryServlet</servlet-name>
+        <servlet-class>servlets.AdminInventoryServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminServlet</servlet-name>
         <url-pattern>/admin</url-pattern>
@@ -100,6 +104,10 @@
         <servlet-name>ResetPasswordServlet</servlet-name>
         <url-pattern>/reset</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminInventoryServlet</servlet-name>
+        <url-pattern>/admininventory</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -118,4 +126,8 @@
         <env-entry-type>java.lang.String</env-entry-type>
         <env-entry-value>cprg352!</env-entry-value>
     </env-entry>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/error404.jsp</location>
+    </error-page>
 </web-app>

@@ -15,15 +15,15 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="row justify-content-md-center">
-                <div class="col text-white">
+                <div class="col-9 text-white">
                     <br>
                     <h1>Home eVentory</h1>
                 </div>
             </div>
             <div class="row justify-content-md-center">
-                <div class="col">
+                <div class="col-md-12 col-lg-9">
                     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                         <a class="navbar-brand" href="login"><div class="baseColor p-1 pl-2 pr-2">${user.firstName} ${user.lastName}</div></a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,6 +34,9 @@
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item">
                                     <a class="nav-link" href="admin">Users</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="admininventory">Inventory</a>
                                 </li>
                                 <li class="nav-item active">
                                     <a class="nav-link" href="category">Category</a>
@@ -48,7 +51,7 @@
             </div>
             <br>
             <div class="row justify-content-md-center">
-                <div class="col col-lg-4">
+                <div class="col-md-12 col-lg-3">
                     <div class="row">
                         <div class="col">
                             <div class="card  bg-dark text-white"> <%-- left card for user form --%>

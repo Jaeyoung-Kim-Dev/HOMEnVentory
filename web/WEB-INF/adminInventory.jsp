@@ -15,15 +15,15 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-        <div class="container-fluid">
+        <div class="container">
             <div class="row justify-content-md-center">
-                <div class="col-9 text-white">
+                <div class="col text-white">
                     <br>
                     <h1>Home eVentory</h1>
                 </div>
             </div>
             <div class="row justify-content-md-center">
-                <div class="col-md-12 col-lg-9">
+                <div class="col">
                     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                         <a class="navbar-brand" href="login"><div class="baseColor p-1 pl-2 pr-2">${user.firstName} ${user.lastName}</div></a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,10 +35,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="admin">Users</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="admininventory">Inventory</a>
-                                </li>
                                 <li class="nav-item active">
+                                    <a class="nav-link" href="category">Inventory</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link" href="category">Category</a>
                                 </li>
                                 <li class="nav-item">
@@ -50,54 +50,69 @@
                 </div>
             </div>
             <br>
-            <div class="row justify-content-md-center">
-                <div class="col-md-12 col-lg-3">
+            <div class="row">
+                <div class="col-sm-12 col-lg-4">
                     <div class="row">
                         <div class="col">
                             <div class="card  bg-dark text-white"> <%-- left card for user form --%>
                                 <c:choose>
                                     <c:when test="${defaultTitle == true}">
-                                        <h1 class="card-header">Category</h1>
+                                        <h1 class="card-header">Item</h1>
                                     </c:when>
-                                    <c:when test="${addCategory== true}">
-                                        <h1 class="card-header">Add Category</h1>
+                                    <c:when test="${addItem== true}">
+                                        <h1 class="card-header">Add Item</h1>
                                     </c:when>
-                                    <c:when test="${editCategory== true}">
-                                        <h1 class="card-header">Edit Category</h1>
+                                    <c:when test="${editItem== true}">
+                                        <h1 class="card-header">Edit Item</h1>
                                     </c:when>
                                 </c:choose>
                                 <div class="card-body">
-                                    <form method="get" action="category">                              
+                                    <form method="get" action="inventory">                              
                                         <c:choose>
                                             <c:when test="${enableForm == true}">
-                                                <input type="submit" value="Add Category"  class="btn btn-primary btn-block" disabled>          
+                                                <input type="submit" value="Add Item"  class="btn btn-primary btn-block" disabled>          
                                             </c:when>
                                             <c:when test="${enableForm == false}">
-                                                <input type="submit" value="Add Category" class="btn btn-primary btn-block">
-                                                <input type="hidden" name="action" value="addCategory">
+                                                <input type="submit" value="Add Item" class="btn btn-primary btn-block">
+                                                <input type="hidden" name="action" value="addItem">
                                             </c:when>
                                         </c:choose>
                                     </form>
                                     <br>      
-                                    <form method="post" action="category">
+                                    <form method="post" action="inventory">
                                         <c:choose>
-                                            <c:when test="${enableForm == true}">
-                                                <input type="text" name="categoryName" placeholder="Category" class="form-control bg-dark text-white" value="${categoryToEdit.categoryName}">                                            
+                                            <c:when test="${enableForm == true}">                                            
+                                                <select name="categoryName" class="form-control bg-dark text-white">
+                                                    <c:forEach items="${categories}" var="category">
+                                                        <%-- when the role ID found then the opstion is default selected--%>
+                                                        <option value="${category.categoryId}" ${category.categoryId == itemToEdit.category.categoryId ? 'selected="selected"' : ''}>${category.categoryName}</option> 
+                                                    </c:forEach>                        
+                                                </select>   
+                                                <br>                                                                                        
+                                                <input type="text" name="itemName" placeholder="Name" class="form-control bg-dark text-white" value="${itemToEdit.itemName}">
                                                 <br>
+                                                <input type="text" name="price" placeholder="Price" class="form-control bg-dark text-white" value="${itemToEdit.price}">
+                                                <br>                                            
                                                 <input type="submit" value="Save" class="btn btn-success btn-block">
-                                                <input type="hidden" name="categoryId" value="${categoryToEdit.categoryId}"> 
-                                                <input type="hidden" name="action" value="saveCategory"> 
-                                                <input type="hidden" name="saveMode" value="${addCategory ? 'addCategory' : 'editCategory'}">                                    
+                                                <input type="hidden" name="itemId" value="${itemToEdit.itemId}"> 
+                                                <input type="hidden" name="action" value="saveItem"> 
+                                                <input type="hidden" name="saveMode" value="${addItem ? 'addItem' : 'editItem'}">                                    
                                             </c:when>
                                             <c:when test="${enableForm == false}">    
-                                                <input type="text" name="categoryName" placeholder="Category" class="form-control bg-dark text-white" disabled>                                            
+                                                <select name="categoryName" class="form-control bg-dark" disabled>
+                                                    <option>Category</option>
+                                                </select>  
+                                                <br>
+                                                <input type="text" name="itemName" class="form-control bg-dark" value="Name" disabled>
+                                                <br>
+                                                <input type="text" name="lastName" class="form-control bg-dark" value="Price" disabled>
                                                 <br>
                                                 <input type="submit" value="Save" class="btn btn-success btn-block" disabled>     
                                             </c:when>            
                                         </c:choose>                            
                                     </form>
                                     <br>
-                                    <form method="get" action="category">
+                                    <form method="get" action="inventory">
                                         <c:choose>
                                             <c:when test="${cancelForm == true}">
                                                 <input type="submit" value="Cancel" class="btn btn-secondary btn-block">
@@ -120,7 +135,7 @@
                                     <div class="card  bg-dark text-white"> <%-- left card for user form --%>
                                         <div class="card-header">Message:</div>
                                         <div class="card-body">                               
-                                            <p>The <span class="text-success">${categoryAdded}</span> has been successfully <span class="text-success">added</span>.</p>
+                                            <p>The <span class="text-success">${itemAdded}</span> has been successfully <span class="text-success">added</span>.</p>
                                         </div>
                                     </div>
                                 </c:when>
@@ -128,7 +143,23 @@
                                     <div class="card  bg-dark text-white"> <%-- left card for user form --%>
                                         <div class="card-header">Message:</div>
                                         <div class="card-body">                               
-                                            <p>The <span class="text-warning">${categoryEdited}</span> has been successfully <span class="text-warning">edited</span>.</p>
+                                            <p>The <span class="text-warning">${itemEdited}</span> has been successfully <span class="text-warning">edited</span>.</p>
+                                        </div>
+                                    </div>
+                                </c:when>
+                                <c:when test="${deleteMsg == true}">
+                                    <div class="card  bg-dark text-white"> <%-- left card for user form --%>
+                                        <div class="card-header">Message:</div>
+                                        <div class="card-body">                               
+                                            <p>The <span class="text-danger">${itemDeleted}</span> has been successfully <span class="text-danger">deleted</span>.</p>                                
+                                        </div>
+                                    </div>
+                                </c:when>
+                                <c:when test="${notOwnerMsg == true}">
+                                    <div class="card  bg-danger text-white"> <%-- left card for user form --%>
+                                        <div class="card-header">Message:</div>
+                                        <div class="card-body">                               
+                                            <p>The <span class="text-danger">${itemDeleted}</span> is not your item. You cannot edit it.</p>                                
                                         </div>
                                     </div>
                                 </c:when>
@@ -136,7 +167,15 @@
                                     <div class="card  bg-danger text-white"> <%-- left card for user form --%>
                                         <div class="card-header">Message:</div>
                                         <div class="card-body">                               
-                                            <p>Category name cannot be empty.</p>                                
+                                            <p>Item name and price cannot be empty.</p>                                
+                                        </div>
+                                    </div>
+                                </c:when>
+                                <c:when test="${invalidPriceMsg == true}">
+                                    <div class="card  bg-danger text-white"> <%-- left card for user form --%>
+                                        <div class="card-header">Message:</div>
+                                        <div class="card-body">                               
+                                            <p>Price should consist only of numbers.</p>                                
                                         </div>
                                     </div>
                                 </c:when>
@@ -144,36 +183,48 @@
                         </div> <%-- col --%>
                     </div>  <%-- row --%>
                 </div> <%-- col --%>
-                
-                <div class="col col-lg-4">
+                <div class="col-sm-12 col-lg-8">
                     <div class="card bg-dark text-white">  <%-- right card for user manage users form --%>
-                        <h1 class="card-header">Manage Categories</h1>
+                        <h1 class="card-header">Inventory for ${user.firstName} ${user.lastName}</h1>
                         <div class="card-body overflow-auto">
                             <table class="table">
                                 <thead class="baseColor">
                                     <tr>
-                                        <th>Category Name</th>
+                                        <th>Category</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
                                         <th>Edit</th>
+                                        <th>Delete</th>
                                     </tr>
                                 </thead>
-                                <c:forEach items="${categories}" var="category"> <%-- loop to find users and display in the table --%>
+                                <c:forEach items="${items}" var="item"> <%-- loop to find users and display in the table --%>
                                     <tr class="text-white">
-                                        <td>${category.categoryName}</td>
+                                        <td>${item.category.categoryName}</td>                                    
+                                        <td>${item.itemName}</td>
+                                        <td>${item.price}</td>
                                         <td>
-                                            <form action="category" method="get">
+                                            <form action="inventory" method="get">
                                                 <input type="submit" value="Edit" class="btn btn-warning">
-                                                <input type="hidden" name="action" value="editCategory">
-                                                <input type="hidden" name="categoryId" value="${category.categoryId}">
+                                                <input type="hidden" name="action" value="editItem">
+                                                <input type="hidden" name="itemId" value="${item.itemId}">
                                             </form>
                                             <br>            
+                                        </td>
+                                        <td>
+                                            <form action="inventory" method="post">
+                                                <input type="submit" value="Delete"class="btn btn-danger">
+                                                <input type="hidden" name="action" value="deleteItem">                        
+                                                <input type="hidden" name="itemId" value="${item.itemId}">
+                                                <br>            
+                                            </form>
                                         </td>
                                     </tr>
                                 </c:forEach>
                             </table>  
-                        </div>
-                    </div>  <%-- card-body --%>
-                </div>  <%-- card --%>
-            </div> <%-- col --%>
-        </div>  <%-- row --%>
+                        </div>  <%-- card-body --%>
+                    </div>  <%-- card --%>
+                </div> <%-- col --%>
+            </div>  <%-- row --%>
+        </div>  <%-- container --%>
     </body>
 </html>
