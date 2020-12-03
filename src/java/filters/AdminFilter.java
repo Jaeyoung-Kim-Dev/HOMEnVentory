@@ -24,14 +24,23 @@ public class AdminFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpSession session = httpRequest.getSession();
         String email = (String) session.getAttribute("email");
-
         UserDB userDB = new UserDB();
-        User user = userDB.get(email);
+        User user = null;
+
+        if (email == null) {
+            HttpServletResponse httpResponse = (HttpServletResponse) response;
+            session.invalidate();
+            httpResponse.sendRedirect("login");
+            return;
+        }
+
+        user = userDB.get(email);
+
         int role = user.getRole().getRoleId();
 
         if (role != 1) {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
-            httpResponse.sendRedirect("inventory");
+            httpResponse.sendRedirect("login");
             return;
         }
 
