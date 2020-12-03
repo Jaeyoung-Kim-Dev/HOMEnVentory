@@ -37,8 +37,9 @@ public class AdminInventoryServlet extends HttpServlet {
 
         // change item form in 'inventory.jsp' as per the the diplay mode such as default, add or edit item
         String action = request.getParameter("action");
+        String searchKeyword = request.getParameter("searchKeyword");
 
-        if (null == action || "cancelSearch".equals(action) || "cancelSave".equals(action)) { // default display or when the press the "Cancel" button of the item form
+        if (null == action || "searchItem".equals(action) || "cancelSearch".equals(action) || "cancelSave".equals(action)) { // default display or when the press the "Cancel" button of the item form
             defaultDisplay(request);
         } else {
             request.setAttribute("enableForm", true);
@@ -59,7 +60,7 @@ public class AdminInventoryServlet extends HttpServlet {
                     break;
             }
         }
-        setLists(request, inventoryService, email, action);
+        setLists(request, inventoryService, email, action, searchKeyword);
         getServletContext().getRequestDispatcher("/WEB-INF/adminInventory.jsp").forward(request, response);
     }
 
@@ -131,7 +132,7 @@ public class AdminInventoryServlet extends HttpServlet {
                 break;
         }
         defaultDisplay(request);
-        setLists(request, inventoryService, email, null);
+        setLists(request, inventoryService, email, null, null);
         getServletContext().getRequestDispatcher("/WEB-INF/adminInventory.jsp").forward(request, response);
     }
 
@@ -148,7 +149,7 @@ public class AdminInventoryServlet extends HttpServlet {
     /**
      * Pass user, items and categories to inventory.jsp
      */
-    private HttpServletRequest setLists(HttpServletRequest request, InventoryService inventoryService, String email, String action) {
+    private HttpServletRequest setLists(HttpServletRequest request, InventoryService inventoryService, String email, String action, String searchKeyword) {
         try {
             List<Category> categories = inventoryService.getAllCategories();
             AccountService accountService = new AccountService();
@@ -156,9 +157,10 @@ public class AdminInventoryServlet extends HttpServlet {
             request.setAttribute("user", user);
 
             if ("searchItem".equals(action)) {
-
+                request.setAttribute("items", inventoryService.searchItem(searchKeyword));
+                request.setAttribute("searchKeyword", searchKeyword);
             } else {
-                request.setAttribute("items", inventoryService.getAllItems());
+                request.setAttribute("items", inventoryService.getAllItems());                
             }
 
             request.setAttribute("categories", categories);

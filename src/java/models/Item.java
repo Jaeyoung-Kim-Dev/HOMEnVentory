@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Item.findAll", query = "SELECT i FROM Item i")
     , @NamedQuery(name = "Item.findByItemId", query = "SELECT i FROM Item i WHERE i.itemId = :itemId")
     , @NamedQuery(name = "Item.findByItemName", query = "SELECT i FROM Item i WHERE i.itemName = :itemName")
+    , @NamedQuery(name = "Item.findByItemNameLike", query = "SELECT i FROM Item i WHERE i.itemName LIKE :itemName")
     , @NamedQuery(name = "Item.findByPrice", query = "SELECT i FROM Item i WHERE i.price = :price")})
 public class Item implements Serializable {
 
@@ -130,5 +131,5 @@ public class Item implements Serializable {
     public String toString() {
         return "models.Item[ itemId=" + itemId + " ]";
     }
-    
+
 }
