@@ -15,15 +15,15 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="row justify-content-md-center">
-                <div class="col text-white">
+                <div class="col-9 text-white">
                     <br>
                     <h1>Home eVentory</h1>
                 </div>
             </div>
             <div class="row justify-content-md-center">
-                <div class="col">
+                <div class="col-md-12 col-lg-9">
                     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                         <a class="navbar-brand" href="login"><div class="baseColor p-1 pl-2 pr-2">${user.firstName} ${user.lastName}</div></a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@
                                     <a class="nav-link" href="admin">Users</a>
                                 </li>
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="category">Inventory</a>
+                                    <a class="nav-link" href="admininventory">Inventory</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="category">Category</a>
@@ -50,8 +50,45 @@
                 </div>
             </div>
             <br>
-            <div class="row">
-                <div class="col-sm-12 col-lg-4">
+            <div class="row justify-content-md-center">
+                <div class="col-md-12 col-lg-3">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card  bg-dark text-white"> <%-- left card for user form --%>
+                                <h1 class="card-header">Search Item</h1>
+                                <div class="card-body">                                    
+                                    <form method="post" action="admininventory">
+                                        <c:choose>
+                                            <c:when test="${enableForm == false}">                                                                                                                                                                            
+                                                <input type="text" name="search" placeholder="Item name" class="form-control bg-dark text-white">
+                                                <br>                                                
+                                                <input type="submit" value="Search" class="btn btn-success btn-block">
+                                                <input type="hidden" name="action" value="searchItem">                               
+                                            </c:when>
+                                            <c:when test="${enableForm == true}">                                                    
+                                                <input type="text" name="search" class="form-control bg-dark" value="Item name" disabled>
+                                                <br>
+                                                <input type="submit" value="Search" class="btn btn-success btn-block" disabled>     
+                                            </c:when>            
+                                        </c:choose>                            
+                                    </form>
+                                    <br>
+                                    <form method="get" action="admininventory">
+                                        <c:choose>
+                                            <c:when test="${cancelForm == false}">
+                                                <input type="submit" value="Cancel" class="btn btn-secondary btn-block">
+                                                <input type="hidden" name="action" value="cancelSearch">                                         
+                                            </c:when>
+                                            <c:when test="${cancelForm == true}">
+                                                <input type="submit" value="Cancel" class="btn btn-secondary btn-block" disabled>
+                                            </c:when>            
+                                        </c:choose>
+                                    </form>                        
+                                </div> <%-- card-body --%>                    
+                            </div>  <%-- card --%>
+                        </div>  <%-- col --%>
+                    </div> <%-- row --%>
+                    <br>
                     <div class="row">
                         <div class="col">
                             <div class="card  bg-dark text-white"> <%-- left card for user form --%>
@@ -67,7 +104,7 @@
                                     </c:when>
                                 </c:choose>
                                 <div class="card-body">
-                                    <form method="get" action="inventory">                              
+                                    <form method="get" action="admininventory">                              
                                         <c:choose>
                                             <c:when test="${enableForm == true}">
                                                 <input type="submit" value="Add Item"  class="btn btn-primary btn-block" disabled>          
@@ -79,7 +116,7 @@
                                         </c:choose>
                                     </form>
                                     <br>      
-                                    <form method="post" action="inventory">
+                                    <form method="post" action="admininventory">
                                         <c:choose>
                                             <c:when test="${enableForm == true}">                                            
                                                 <select name="categoryName" class="form-control bg-dark text-white">
@@ -112,11 +149,11 @@
                                         </c:choose>                            
                                     </form>
                                     <br>
-                                    <form method="get" action="inventory">
+                                    <form method="get" action="admininventory">
                                         <c:choose>
                                             <c:when test="${cancelForm == true}">
                                                 <input type="submit" value="Cancel" class="btn btn-secondary btn-block">
-                                                <input type="hidden" name="action" value="cancel">                                         
+                                                <input type="hidden" name="action" value="cancelSave">                                         
                                             </c:when>
                                             <c:when test="${cancelForm == false}">
                                                 <input type="submit" value="Cancel" class="btn btn-secondary btn-block" disabled>            
@@ -155,14 +192,6 @@
                                         </div>
                                     </div>
                                 </c:when>
-                                <c:when test="${notOwnerMsg == true}">
-                                    <div class="card  bg-danger text-white"> <%-- left card for user form --%>
-                                        <div class="card-header">Message:</div>
-                                        <div class="card-body">                               
-                                            <p>The <span class="text-danger">${itemDeleted}</span> is not your item. You cannot edit it.</p>                                
-                                        </div>
-                                    </div>
-                                </c:when>
                                 <c:when test="${invalidMsg == true}">
                                     <div class="card  bg-danger text-white"> <%-- left card for user form --%>
                                         <div class="card-header">Message:</div>
@@ -183,13 +212,14 @@
                         </div> <%-- col --%>
                     </div>  <%-- row --%>
                 </div> <%-- col --%>
-                <div class="col-sm-12 col-lg-8">
+                <div class="col-sm-12 col-md-8 col-lg-6">
                     <div class="card bg-dark text-white">  <%-- right card for user manage users form --%>
-                        <h1 class="card-header">Inventory for ${user.firstName} ${user.lastName}</h1>
+                        <h1 class="card-header">Inventory for Users</h1>
                         <div class="card-body overflow-auto">
                             <table class="table">
                                 <thead class="baseColor">
                                     <tr>
+                                        <th>Owner</th>
                                         <th>Category</th>
                                         <th>Name</th>
                                         <th>Price</th>
@@ -199,11 +229,12 @@
                                 </thead>
                                 <c:forEach items="${items}" var="item"> <%-- loop to find users and display in the table --%>
                                     <tr class="text-white">
+                                        <td>${item.owner.email}</td>
                                         <td>${item.category.categoryName}</td>                                    
                                         <td>${item.itemName}</td>
                                         <td>${item.price}</td>
                                         <td>
-                                            <form action="inventory" method="get">
+                                            <form action="admininventory" method="get">
                                                 <input type="submit" value="Edit" class="btn btn-warning">
                                                 <input type="hidden" name="action" value="editItem">
                                                 <input type="hidden" name="itemId" value="${item.itemId}">
@@ -211,7 +242,7 @@
                                             <br>            
                                         </td>
                                         <td>
-                                            <form action="inventory" method="post">
+                                            <form action="admininventory" method="post">
                                                 <input type="submit" value="Delete"class="btn btn-danger">
                                                 <input type="hidden" name="action" value="deleteItem">                        
                                                 <input type="hidden" name="itemId" value="${item.itemId}">
