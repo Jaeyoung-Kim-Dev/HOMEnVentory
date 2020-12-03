@@ -24,18 +24,21 @@ public class AuthenticationFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpSession session = httpRequest.getSession();
         String email = (String) session.getAttribute("email");
-
-        UserDB userDB = new UserDB();
-        User user = userDB.get(email);
-        boolean isActive = user.getActive();        
-
+        boolean isActive = false;
+        
+        try {
+            UserDB userDB = new UserDB();
+            User user = userDB.get(email);            
+            isActive = user.getActive();
+        } catch (Exception e) {
+        }
+        
         if (email == null || !isActive) {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             session.invalidate();
-            //request.setAttribute("invalid", true);
             httpResponse.sendRedirect("login");
             return;
-        }       
+        }
 
         chain.doFilter(request, response); // execute the servlet
 
