@@ -24,14 +24,14 @@
                         <div class="input-group-prepend ">
                             <span class="input-group-text baseColor">Username</span>
                         </div>
-                        <input type="email" class="form-control" name="email" value="cprg352+admin@gmail.com">  <%-- value="${email}"> --%>
+                        <input type="email" class="form-control" name="email" value="${email}">
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text baseColor">Password</span>
                         </div>
-                        <input type="password" class="form-control" name="password" value="password"> <%-- value="${password}"> --%>
+                        <input type="password" class="form-control" name="password" value="${password}">
                     </div>
                     <div class="form-group row p-3">
                         <input type="submit" class="btn btn-primary btn-block" value="Log in">
