@@ -20,7 +20,7 @@ import models.User;
 import services.AccountService;
 import services.InventoryService;
 
-public class InventoryServlet extends HttpServlet {
+public class AdminInventoryServlet extends HttpServlet {
 
     /**
      * Gets the "action" and displays the inventory.jsp based on status
@@ -38,7 +38,7 @@ public class InventoryServlet extends HttpServlet {
         // change item form in 'inventory.jsp' as per the the diplay mode such as default, add or edit item
         String action = request.getParameter("action");
 
-        if (null == action || "cancel".equals(action)) { // default display or when the press the "Cancel" button of the item form
+        if (null == action || "cancelSearch".equals(action) || "cancelSave".equals(action)) { // default display or when the press the "Cancel" button of the item form
             defaultDisplay(request);
         } else {
             request.setAttribute("enableForm", true);
@@ -51,23 +51,16 @@ public class InventoryServlet extends HttpServlet {
                     try {
                         int itemId = Integer.parseInt(request.getParameter("itemId"));
                         Item item = inventoryService.getItem(itemId);
-                        
-                        if (item.getOwner().getEmail().equals(email)) { //check if the item is belongs to the owner.
-                            request.setAttribute("itemToEdit", item);
-                            request.setAttribute("editItem", true);
-                        } else {
-                            request.setAttribute("notOwnerMsg", true);
-                            request.setAttribute("enableForm", false);
-                            request.setAttribute("cancelForm", false);
-                        }
+                        request.setAttribute("itemToEdit", item);
+                        request.setAttribute("editItem", true);
                     } catch (Exception ex) {
                         Logger.getLogger(AdminServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break;
             }
         }
-        setLists(request, inventoryService, email);
-        getServletContext().getRequestDispatcher("/WEB-INF/inventory.jsp").forward(request, response);
+        setLists(request, inventoryService, email, action);
+        getServletContext().getRequestDispatcher("/WEB-INF/adminInventory.jsp").forward(request, response);
     }
 
     /**
@@ -95,14 +88,9 @@ public class InventoryServlet extends HttpServlet {
                     String itemName = item.getItemName();
                     int itemId = Integer.parseInt(request.getParameter("itemId"));
 
-                    if (!item.getOwner().getEmail().equals(email)) {
-                        request.setAttribute("notOwnerMsg", true);
-                        request.setAttribute("itemDeleted", itemName);
-                    } else {
-                        inventoryService.deleteItem(itemId);
-                        request.setAttribute("deleteMsg", true);
-                        request.setAttribute("itemDeleted", itemName);
-                    }
+                    inventoryService.deleteItem(itemId);
+                    request.setAttribute("deleteMsg", true);
+                    request.setAttribute("itemDeleted", itemName);
                 } catch (Exception ex) {
                     Logger.getLogger(AdminServlet.class
                             .getName()).log(Level.SEVERE, null, ex);
@@ -143,8 +131,8 @@ public class InventoryServlet extends HttpServlet {
                 break;
         }
         defaultDisplay(request);
-        setLists(request, inventoryService, email);
-        getServletContext().getRequestDispatcher("/WEB-INF/inventory.jsp").forward(request, response);
+        setLists(request, inventoryService, email, null);
+        getServletContext().getRequestDispatcher("/WEB-INF/adminInventory.jsp").forward(request, response);
     }
 
     /**
@@ -160,13 +148,19 @@ public class InventoryServlet extends HttpServlet {
     /**
      * Pass user, items and categories to inventory.jsp
      */
-    private HttpServletRequest setLists(HttpServletRequest request, InventoryService inventoryService, String email) {
+    private HttpServletRequest setLists(HttpServletRequest request, InventoryService inventoryService, String email, String action) {
         try {
             List<Category> categories = inventoryService.getAllCategories();
             AccountService accountService = new AccountService();
             User user = accountService.getUser(email);
             request.setAttribute("user", user);
-            request.setAttribute("items", user.getItemList());
+
+            if ("searchItem".equals(action)) {
+
+            } else {
+                request.setAttribute("items", inventoryService.getAllItems());
+            }
+
             request.setAttribute("categories", categories);
         } catch (Exception ex) {
             Logger.getLogger(AdminServlet.class

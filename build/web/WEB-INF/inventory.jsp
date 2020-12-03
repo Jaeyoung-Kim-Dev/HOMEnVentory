@@ -156,7 +156,7 @@
                                     <div class="card  bg-danger text-white"> <%-- left card for user form --%>
                                         <div class="card-header">Message:</div>
                                         <div class="card-body">                               
-                                            <p>The <span class="text-danger">${itemDeleted}</span> is not your item. You cannot edit it.</p>                                
+                                            <p>The item is not yours. You cannot edit it.</p>                                
                                         </div>
                                     </div>
                                 </c:when>

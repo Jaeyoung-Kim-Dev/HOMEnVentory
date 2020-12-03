@@ -95,10 +95,7 @@ public class InventoryServlet extends HttpServlet {
                     String itemName = item.getItemName();
                     int itemId = Integer.parseInt(request.getParameter("itemId"));
 
-                    if (!item.getOwner().getEmail().equals(email)) {
-                        request.setAttribute("notOwnerMsg", true);
-                        request.setAttribute("itemDeleted", itemName);
-                    } else {
+                    if (item.getOwner().getEmail().equals(email)) {
                         inventoryService.deleteItem(itemId);
                         request.setAttribute("deleteMsg", true);
                         request.setAttribute("itemDeleted", itemName);
