@@ -48,7 +48,7 @@
             </div>
             <br>
             <div class="row">
-                <div class="col-sm-12 col-lg-3">
+                <div class="col-sm-12 col-lg-4">
                     <div class="row">
                         <div class="col">
                             <div class="card  bg-dark text-white"> <%-- left card for user form --%>
@@ -180,7 +180,7 @@
                         </div> <%-- col --%>
                     </div>  <%-- row --%>
                 </div> <%-- col --%>
-                <div class="col-sm-12 col-lg-9">
+                <div class="col-sm-12 col-lg-8">
                     <div class="card bg-dark text-white">  <%-- right card for user manage users form --%>
                         <h1 class="card-header">Inventory for ${user.firstName} ${user.lastName}</h1>
                         <div class="card-body overflow-auto">
@@ -222,6 +222,6 @@
                     </div>  <%-- card --%>
                 </div> <%-- col --%>
             </div>  <%-- row --%>
-        </div>
+        </div>  <%-- container --%>
     </body>
 </html>
