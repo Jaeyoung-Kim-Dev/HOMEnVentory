@@ -5,18 +5,12 @@
             <url>web/WEB-INF/admin.jsp</url>
             <bookmark id="1">
                 <name/>
-                <line>3</line>
+                <line>0</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/servlets/InventoryServlet.java</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/web/WEB-INF/myaccount.jsp</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/web/WEB-INF/category.jsp</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/web/WEB-INF/inventory.jsp</file>
-            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/services/InventoryService.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
