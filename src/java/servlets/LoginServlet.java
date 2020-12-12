@@ -82,6 +82,8 @@ public class LoginServlet extends HttpServlet {
         // system admin redirects 'admin' otherwise 'inventory'
         if (user.getRole().getRoleId() == 1) {
             response.sendRedirect("admin");
+        } else if (user.getRole().getRoleId() == 3) {
+            response.sendRedirect("companyadmin");
         } else {
             response.sendRedirect("inventory");
         }

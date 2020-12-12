@@ -28,6 +28,12 @@
                     <input type="text" name="lastName" placeholder="Last Name" class="form-control bg-dark text-white">
                     <br>
                     <input type="password" name="password" placeholder="Password" class="form-control bg-dark text-white">
+                    <br>                                    
+                    <select name="companyName" class="form-control bg-dark text-white">
+                        <c:forEach items="${companies}" var="company">
+                            <option value="${company.companyId}">${company.companyName}</option> 
+                        </c:forEach>                        
+                    </select>
                     <br>
                     <input type="submit" value="Save" class="btn btn-success btn-block">
                 </form>

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.User;
 
-public class AdminFilter implements Filter {
+public class CompanyAdminFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
@@ -38,7 +38,7 @@ public class AdminFilter implements Filter {
 
         int role = user.getRole().getRoleId();
 
-        if (role != 1) {
+        if (role != 3) {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.sendRedirect("login");
             return;

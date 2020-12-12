@@ -4,6 +4,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
+import models.Company;
 import models.Role;
 import models.User;
 
@@ -49,7 +50,7 @@ public class UserDB {
             em.close();
         }
     }
-
+    
     public User getByEmailVerifyUUID(String uuid) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
 
@@ -90,9 +91,14 @@ public class UserDB {
         try {
             Role role = user.getRole();
             role.getUserList().add(user);
+            
+            Company company = user.getCompany();
+            company.getUserList().add(user);
+            
             trans.begin();
             em.persist(user);
             em.merge(role);
+            em.merge(company);
             trans.commit();
         } catch (Exception ex) {
             trans.rollback();
@@ -138,9 +144,14 @@ public class UserDB {
         try {
             Role role = user.getRole();
             role.getUserList().remove(user);
+            
+            Company company = user.getCompany();
+            company.getUserList().remove(user);
+            
             trans.begin();
             em.remove(em.merge(user));
             em.merge(role);
+            em.merge(company);
             trans.commit();
         } catch (Exception ex) {
             trans.rollback();
