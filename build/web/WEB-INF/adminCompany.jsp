@@ -33,13 +33,7 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="admin">Users</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="admininventory">Inventory</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="category">Category</a>
+                                    <a class="nav-link" href="companyadmin">Users</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="login?logout">Logout</a>
@@ -67,7 +61,7 @@
                                     </c:when>
                                 </c:choose>
                                 <div class="card-body">
-                                    <form method="get" action="admin">                              
+                                    <form method="get" action="companyadmin">                              
                                         <c:choose>
                                             <c:when test="${enableForm == true}">
                                                 <input type="submit" value="Add User"  class="btn btn-primary btn-block" disabled>          
@@ -79,7 +73,7 @@
                                         </c:choose>
                                     </form>
                                     <br>      
-                                    <form method="post" action="admin">
+                                    <form method="post" action="companyadmin">
                                         <c:choose>
                                             <c:when test="${enableForm == true}">
                                                 <c:choose>
@@ -111,12 +105,6 @@
                                                 <input type="text" name="lastName" placeholder="Last Name" class="form-control bg-dark text-white" value="${userToEdit.lastName}">
                                                 <br>
                                                 <input type="password" name="password" placeholder="Password" class="form-control bg-dark text-white" value="${userToEdit.password}">
-                                                <br>                                    
-                                                <select name="companyName" class="form-control bg-dark text-white">
-                                                    <c:forEach items="${companies}" var="company">
-                                                        <option value="${company.companyId}" ${company.companyId == userToEdit.company.companyId ? 'selected="selected"' : ''}>${company.companyName}</option> 
-                                                    </c:forEach>                        
-                                                </select>   
                                                 <br>                                    
                                                 <select name="roleName" class="form-control bg-dark text-white">
                                                     <c:forEach items="${roles}" var="role">
@@ -152,10 +140,6 @@
                                                 <br>
                                                 <input type="text" name="password" class="form-control bg-dark" value="Password" disabled>
                                                 <br>
-                                                <select name="companyName" class="form-control bg-dark" disabled>
-                                                    <option>Company</option>
-                                                </select>
-                                                <br>
                                                 <select name="roleName" class="form-control bg-dark" disabled>
                                                     <option>Role</option>
                                                 </select>  
@@ -165,7 +149,7 @@
                                         </c:choose>                            
                                     </form>
                                     <br>
-                                    <form method="get" action="admin">
+                                    <form method="get" action="companyadmin">
                                         <c:choose>
                                             <c:when test="${cancelForm == true}">
                                                 <input type="submit" value="Cancel" class="btn btn-secondary btn-block">
@@ -222,7 +206,7 @@
                 </div> <%-- col --%>
                 <div class="col-sm-12 col-md-8 col-lg-6">
                     <div class="card bg-dark text-white">  <%-- right card for user manage users form --%>
-                        <h1 class="card-header">Manage Users</h1>
+                        <h1 class="card-header">Manage Users of ${user.company.companyName}</h1>
                         <div class="card-body overflow-auto">
                             <table class="table">
                                 <thead class="baseColor">
@@ -232,7 +216,7 @@
                                         <th>First Name</th>
                                         <th>Last Name</th>
                                         <th>Company</th>
-                                        <th>Role</th>                                        
+                                        <th>Role</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
                                     </tr>
@@ -248,7 +232,7 @@
                                         <td>${user.company.companyName}</td>
                                         <td>${user.role.roleName}</td> <%-- JPA magic happening here! --%>
                                         <td>
-                                            <form action="admin" method="get">
+                                            <form action="companyadmin" method="get">
                                                 <input type="submit" value="Edit" class="btn btn-warning">
                                                 <input type="hidden" name="action" value="editUser">
                                                 <input type="hidden" name="email" value="${user.email}">
@@ -256,7 +240,7 @@
                                             <br>            
                                         </td>
                                         <td>
-                                            <form action="admin" method="post">
+                                            <form action="companyadmin" method="post">
                                                 <input type="submit" value="Delete"class="btn btn-danger">
                                                 <input type="hidden" name="action" value="deleteUser">                        
                                                 <input type="hidden" name="email" value="${user.email}">

@@ -63,6 +63,9 @@ public class User implements Serializable {
     private String resetPasswordUuid;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)
     private List<Item> itemList;
+    @JoinColumn(name = "company", referencedColumnName = "company_id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Company company;
     @JoinColumn(name = "role", referencedColumnName = "role_id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Role role;
@@ -147,6 +150,14 @@ public class User implements Serializable {
         this.itemList = itemList;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
     public Role getRole() {
         return role;
     }
@@ -179,5 +190,5 @@ public class User implements Serializable {
     public String toString() {
         return "models.User[ email=" + email + " ]";
     }
-    
+
 }

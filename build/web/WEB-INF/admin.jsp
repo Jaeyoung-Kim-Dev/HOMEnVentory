@@ -112,6 +112,12 @@
                                                 <br>
                                                 <input type="password" name="password" placeholder="Password" class="form-control bg-dark text-white" value="${userToEdit.password}">
                                                 <br>                                    
+                                                <select name="companyName" class="form-control bg-dark text-white">
+                                                    <c:forEach items="${companies}" var="company">
+                                                        <option value="${company.companyId}" ${company.companyId == userToEdit.company.companyId ? 'selected="selected"' : ''}>${company.companyName}</option> 
+                                                    </c:forEach>                        
+                                                </select>   
+                                                <br>                                    
                                                 <select name="roleName" class="form-control bg-dark text-white">
                                                     <c:forEach items="${roles}" var="role">
                                                         <%-- when the role ID found then the opstion is default selected--%>
@@ -145,6 +151,10 @@
                                                 <input type="text" name="lastName" class="form-control bg-dark" value="Last Name" disabled>
                                                 <br>
                                                 <input type="text" name="password" class="form-control bg-dark" value="Password" disabled>
+                                                <br>
+                                                <select name="companyName" class="form-control bg-dark" disabled>
+                                                    <option>Company</option>
+                                                </select>
                                                 <br>
                                                 <select name="roleName" class="form-control bg-dark" disabled>
                                                     <option>Role</option>
@@ -221,7 +231,8 @@
                                         <th>Active</th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
-                                        <th>Role</th>
+                                        <th>Company</th>
+                                        <th>Role</th>                                        
                                         <th>Edit</th>
                                         <th>Delete</th>
                                     </tr>
@@ -234,6 +245,7 @@
                                         </td>
                                         <td>${user.firstName}</td>
                                         <td>${user.lastName}</td>
+                                        <td>${user.company.companyName}</td>
                                         <td>${user.role.roleName}</td> <%-- JPA magic happening here! --%>
                                         <td>
                                             <form action="admin" method="get">

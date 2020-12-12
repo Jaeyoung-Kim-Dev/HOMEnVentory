@@ -11,6 +11,19 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/filters/AuthenticationFilter.java</file>
+            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/filters/SystemAdminFilter.java</file>
+            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/dataaccess/UserDB.java</file>
+            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/models/User.java</file>
+            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/servlets/AdminServlet.java</file>
+            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/filters/CompanyAdminFilter.java</file>
+            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/models/Item.java</file>
+            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/filters/UserFilter.java</file>
+            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/web/WEB-INF/adminCompany.jsp</file>
+            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/services/AccountService.java</file>
+            <file>file:/C:/Users/kornk/GitHub/Web%20Application%20Programming%20(CPRG-352-SA1)/project-Jaeyoung-Kim-Dev/src/java/servlets/LoginServlet.java</file>
+        </group>
     </open-files>
 </project-private>

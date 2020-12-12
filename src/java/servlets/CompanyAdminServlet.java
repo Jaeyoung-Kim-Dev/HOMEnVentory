@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.Company;
 import models.Item;
 import models.Role;
 import models.User;
@@ -20,7 +19,7 @@ import services.InventoryService;
  *
  * @author Jaeyoung Kim
  */
-public class AdminServlet extends HttpServlet {
+public class CompanyAdminServlet extends HttpServlet {
 
     /**
      * Gets the "action" and displays the admin.jsp based on status Populates
@@ -57,7 +56,7 @@ public class AdminServlet extends HttpServlet {
             }
         }
         setLists(request, accountService);
-        getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/adminCompany.jsp").forward(request, response);
     }
 
     /**
@@ -127,7 +126,7 @@ public class AdminServlet extends HttpServlet {
         }
         defaultDisplay(request);
         setLists(request, accountService);
-        getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/adminCompany.jsp").forward(request, response);
     }
 
     /**
@@ -148,15 +147,13 @@ public class AdminServlet extends HttpServlet {
             HttpSession session = request.getSession();
             String email = (String) session.getAttribute("email");
 
-            List<User> users = accountService.getAllUser();
+            List<User> users = accountService.getUser(email).getCompany().getUserList();
             List<Role> roles = accountService.getAllRoles();
-            List<Company> companies = accountService.getAllCompanies();
             User user = accountService.getUser(email);
             
             request.setAttribute("users", users);
             request.setAttribute("roles", roles);
-            request.setAttribute("companies", companies);
-            request.setAttribute("user", user);
+            request.setAttribute("user", user);            
         } catch (Exception ex) {
             Logger.getLogger(AdminServlet.class
                     .getName()).log(Level.SEVERE, null, ex);

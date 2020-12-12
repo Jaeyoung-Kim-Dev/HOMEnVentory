@@ -1,5 +1,6 @@
 package services;
 
+import dataaccess.CompanyDB;
 import dataaccess.RoleDB;
 import dataaccess.UserDB;
 import java.util.HashMap;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.Company;
 import models.Role;
 import models.User;
 
@@ -92,12 +94,16 @@ public class AccountService {
      * @throws Exception if there is a Exception with PreparedStatements and
      * ResultSets
      */
-    public void insertUser(String email, boolean active, String firstName, String lastName, String password, int roleId, boolean newUser, String path, String url) throws Exception {
+    public void insertUser(String email, boolean active, String firstName, String lastName, String password,int companyId, int roleId, boolean newUser, String path, String url) throws Exception {
         User user = new User(email, active, firstName, lastName, password);
 
         RoleDB roleDB = new RoleDB();
         Role role = roleDB.get(roleId);
         user.setRole(role);
+        
+        CompanyDB companyDB = new CompanyDB();
+        Company company = companyDB.get(companyId); //TODO: need to fix
+        user.setCompany(company); 
 
         UserDB userDB = new UserDB();
         userDB.insert(user);
@@ -162,7 +168,7 @@ public class AccountService {
      * @throws Exception if there is a Exception with PreparedStatements and
      * ResultSets
      */
-    public void updateUser(String email, boolean active, String firstName, String lastName, String password, int roleId) throws Exception {
+    public void updateUser(String email, boolean active, String firstName, String lastName, String password,int companyId, int roleId) throws Exception {
         UserDB userDB = new UserDB();
         User user = userDB.get(email);
         user.setActive(active);
@@ -173,6 +179,10 @@ public class AccountService {
         RoleDB roleDB = new RoleDB();
         Role role = roleDB.get(roleId);
         user.setRole(role);
+        
+        CompanyDB companyDB = new CompanyDB();
+        Company company = companyDB.get(companyId);
+        user.setCompany(company);
 
         userDB.update(user);
     }
@@ -201,6 +211,12 @@ public class AccountService {
         RoleDB roleDB = new RoleDB();
         List<Role> roles = roleDB.getAll();
         return roles;
+    }
+    
+    public List<Company> getAllCompanies() throws Exception {
+        CompanyDB companyDB = new CompanyDB();
+        List<Company> companies = companyDB.getAll();
+        return companies;
     }
 
     public boolean resetPassword(String email, String path, String url) {
