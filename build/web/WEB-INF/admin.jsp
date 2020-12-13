@@ -114,6 +114,7 @@
                                                 <br>                                    
                                                 <select name="companyName" class="form-control bg-dark text-white">
                                                     <c:forEach items="${companies}" var="company">
+                                                        <%-- when the company ID found then the opstion is default selected--%>
                                                         <option value="${company.companyId}" ${company.companyId == userToEdit.company.companyId ? 'selected="selected"' : ''}>${company.companyName}</option> 
                                                     </c:forEach>                        
                                                 </select>   

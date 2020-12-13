@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName")
     , @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName")
     , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
+    , @NamedQuery(name = "User.findBySalt", query = "SELECT u FROM User u WHERE u.salt = :salt")
     , @NamedQuery(name = "User.findByEmailVerifyUuid", query = "SELECT u FROM User u WHERE u.emailVerifyUuid = :emailVerifyUuid")
     , @NamedQuery(name = "User.findByResetPasswordUuid", query = "SELECT u FROM User u WHERE u.resetPasswordUuid = :resetPasswordUuid")})
 public class User implements Serializable {
@@ -57,6 +58,9 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
+    @Basic(optional = false)
+    @Column(name = "salt")
+    private String salt;
     @Column(name = "email_verify_uuid")
     private String emailVerifyUuid;
     @Column(name = "reset_password_uuid")
@@ -77,12 +81,13 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public User(String email, boolean active, String firstName, String lastName, String password) {
+    public User(String email, boolean active, String firstName, String lastName, String password, String salt) {
         this.email = email;
         this.active = active;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
+        this.salt = salt;
     }
 
     public String getEmail() {
@@ -123,6 +128,14 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public String getEmailVerifyUuid() {
@@ -190,5 +203,5 @@ public class User implements Serializable {
     public String toString() {
         return "models.User[ email=" + email + " ]";
     }
-
+    
 }

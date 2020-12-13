@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import models.Company;
 import models.Role;
 import models.User;
+import utilities.PasswordUtil;
 
 public class AccountService {
 
@@ -25,8 +26,13 @@ public class AccountService {
         UserDB userDB = new UserDB();
         User user = userDB.get(email);
 
+        String passwordFromDB = user.getPassword();
+        String salt = user.getSalt();
+
+        boolean isCorrectPassword = PasswordUtil.isCorrectPassword(password, passwordFromDB, salt);
+        
         try {
-            if (password.equals(user.getPassword()) && user.getActive()) {
+            if (isCorrectPassword && user.getActive()) {
                 Logger.getLogger(AccountService.class.getName()).log(Level.INFO, "Successful login by {0}", email);
 
                 String to = user.getEmail();
@@ -94,16 +100,16 @@ public class AccountService {
      * @throws Exception if there is a Exception with PreparedStatements and
      * ResultSets
      */
-    public void insertUser(String email, boolean active, String firstName, String lastName, String password,int companyId, int roleId, boolean newUser, String path, String url) throws Exception {
-        User user = new User(email, active, firstName, lastName, password);
+    public void insertUser(String email, boolean active, String firstName, String lastName, String password, String salt, int companyId, int roleId, boolean newUser, String path, String url) throws Exception {
+        User user = new User(email, active, firstName, lastName, password, salt);
 
         RoleDB roleDB = new RoleDB();
         Role role = roleDB.get(roleId);
         user.setRole(role);
-        
+
         CompanyDB companyDB = new CompanyDB();
         Company company = companyDB.get(companyId); //TODO: need to fix
-        user.setCompany(company); 
+        user.setCompany(company);
 
         UserDB userDB = new UserDB();
         userDB.insert(user);
@@ -168,7 +174,7 @@ public class AccountService {
      * @throws Exception if there is a Exception with PreparedStatements and
      * ResultSets
      */
-    public void updateUser(String email, boolean active, String firstName, String lastName, String password,int companyId, int roleId) throws Exception {
+    public void updateUser(String email, boolean active, String firstName, String lastName, String password, int companyId, int roleId) throws Exception {
         UserDB userDB = new UserDB();
         User user = userDB.get(email);
         user.setActive(active);
@@ -179,7 +185,7 @@ public class AccountService {
         RoleDB roleDB = new RoleDB();
         Role role = roleDB.get(roleId);
         user.setRole(role);
-        
+
         CompanyDB companyDB = new CompanyDB();
         Company company = companyDB.get(companyId);
         user.setCompany(company);
@@ -212,7 +218,7 @@ public class AccountService {
         List<Role> roles = roleDB.getAll();
         return roles;
     }
-    
+
     public List<Company> getAllCompanies() throws Exception {
         CompanyDB companyDB = new CompanyDB();
         List<Company> companies = companyDB.getAll();
