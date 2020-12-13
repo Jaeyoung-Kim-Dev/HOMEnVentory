@@ -61,7 +61,9 @@
                             <input type="text" name="lastName" placeholder="Last Name" class="form-control bg-dark text-white" value="${userToEdit.lastName}">
                             <br>
                             <input type="password" name="password" placeholder="Password" class="form-control bg-dark text-white" value="${userToEdit.password}">
-                            <br>
+                            <br>                            
+                            <input type="text" name="companyName" placeholder="Company" class="form-control bg-dark text-white" value="${userToEdit.company.companyName}" disabled>
+                            <br>                            
                             <input type="text" name="roleName" placeholder="Role" class="form-control bg-dark text-white" value="${userToEdit.role.roleName}" disabled>
                             <br>
                             <div class="form-check form-check-inline">                               

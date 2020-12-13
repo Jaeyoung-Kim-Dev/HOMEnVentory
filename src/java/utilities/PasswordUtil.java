@@ -37,9 +37,8 @@ public class PasswordUtil {
         return Base64.getEncoder().encodeToString(saltBytes);
     }
 
-    public static String hashAndSaltPassword(String password)
+    public static String hashAndSaltPassword(String password, String salt)
             throws NoSuchAlgorithmException {
-        String salt = getSalt();
         return hashPassword(password + salt);
     }
 
@@ -54,9 +53,6 @@ public class PasswordUtil {
     public static boolean isCorrectPassword(String password, String passwordFromDB, String salt){
         boolean valid = false;
         try {
-//            String c = password + salt;
-//            String a = hashPassword(c);
-//            String b = passwordFromDB;
             valid = hashPassword(password + salt).equals(passwordFromDB);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(PasswordUtil.class.getName()).log(Level.SEVERE, null, ex);

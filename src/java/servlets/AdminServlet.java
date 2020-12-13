@@ -103,7 +103,7 @@ public class AdminServlet extends HttpServlet {
                 int company = Integer.parseInt(request.getParameter("companyName"));
                 int role = Integer.parseInt(request.getParameter("roleName"));
 
-                if (email == null || email.equals("")) { // email is mandatory to add a new user
+                if (email == null || email.equals("") || firstName == null || firstName.equals("") ||lastName == null || lastName.equals("") ||password == null || password.equals("")) { // email is mandatory to add a new user
                     request.setAttribute("invalidMsg", true);
                     break;
                 }
@@ -111,7 +111,7 @@ public class AdminServlet extends HttpServlet {
                 String saveMode = request.getParameter("saveMode");
                 try {
                     if ("addUser".equals(saveMode)) { // adding a new user
-                        accountService.insertUser(email, isActive, firstName, lastName, password, "a",company, role, false, null, null); //TODO: fix salt
+                        accountService.insertUser(email, isActive, firstName, lastName, password ,company, role, false, null, null); //TODO: fix salt
                         request.setAttribute("addMsg", true);
                         request.setAttribute("emailAdded", email);
                     } else if ("editUser".equals(saveMode)) { // editing the existing user

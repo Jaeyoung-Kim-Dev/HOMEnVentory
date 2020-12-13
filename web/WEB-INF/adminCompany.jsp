@@ -196,7 +196,7 @@
                                     <div class="card  bg-danger text-white"> <%-- left card for user form --%>
                                         <div class="card-header">Message:</div>
                                         <div class="card-body">                               
-                                            <p>Email cannot be empty.</p>                                
+                                            <p>All fields cannot be empty.</p>                                            
                                         </div>
                                     </div>
                                 </c:when>

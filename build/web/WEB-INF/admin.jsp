@@ -110,7 +110,7 @@
                                                 <br>
                                                 <input type="text" name="lastName" placeholder="Last Name" class="form-control bg-dark text-white" value="${userToEdit.lastName}">
                                                 <br>
-                                                <input type="password" name="password" placeholder="Password" class="form-control bg-dark text-white" value="${userToEdit.password}">
+                                                <input type="password" name="password" placeholder="Password" class="form-control bg-dark text-white">
                                                 <br>                                    
                                                 <select name="companyName" class="form-control bg-dark text-white">
                                                     <c:forEach items="${companies}" var="company">
@@ -213,7 +213,7 @@
                                     <div class="card  bg-danger text-white"> <%-- left card for user form --%>
                                         <div class="card-header">Message:</div>
                                         <div class="card-body">                               
-                                            <p>Email cannot be empty.</p>                                
+                                            <p>All fields cannot be empty.</p>                                
                                         </div>
                                     </div>
                                 </c:when>

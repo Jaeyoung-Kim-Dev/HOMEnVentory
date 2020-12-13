@@ -69,8 +69,6 @@ public class MyAccountServlet extends HttpServlet {
         String lastName = request.getParameter("lastName");
         String password = request.getParameter("password");
         boolean isActive = ("active".equals(request.getParameter("isActive")));
-        int company = Integer.parseInt(request.getParameter("companyName"));
-        int role = Integer.parseInt(request.getParameter("roleName"));
 
         //validates that user name and password are not empty
         if (firstName == null || firstName.equals("") || lastName == null || lastName.equals("") || password == null || password.equals("")) {
@@ -86,7 +84,7 @@ public class MyAccountServlet extends HttpServlet {
         }
 
         try {
-            accountService.updateUser(email, isActive, firstName, lastName, password, company, role);
+            accountService.updateUser(email, isActive, firstName, lastName, password);
         } catch (Exception ex) {
             Logger.getLogger(SignupServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
