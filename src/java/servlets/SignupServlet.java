@@ -90,7 +90,7 @@ public class SignupServlet extends HttpServlet {
         try {
             String path = getServletContext().getRealPath("/WEB-INF");
             String url = request.getRequestURL().toString(); // to get the current URL
-            as.insertUser(email, false, firstName, lastName, password, company, 2, true, path, url);
+            as.insertUser(email, false, firstName, lastName, password, "a", company, 2, true, path, url); //TODO: fix salt
         } catch (Exception ex) {
             Logger.getLogger(SignupServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

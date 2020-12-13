@@ -8,13 +8,14 @@ import models.Company;
 import models.Item;
 import models.Role;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-12-12T03:00:42")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-12-12T22:29:43")
 @StaticMetamodel(User.class)
 public class User_ { 
 
     public static volatile SingularAttribute<User, String> firstName;
     public static volatile SingularAttribute<User, String> lastName;
     public static volatile SingularAttribute<User, String> password;
+    public static volatile SingularAttribute<User, String> salt;
     public static volatile SingularAttribute<User, Role> role;
     public static volatile SingularAttribute<User, Boolean> active;
     public static volatile ListAttribute<User, Item> itemList;

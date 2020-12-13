@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.User;
 import services.AccountService;
+import utilities.PasswordUtil;
 
 public class LoginServlet extends HttpServlet {
 
@@ -54,9 +55,16 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        boolean emptyPassword = false;
+        
+        try {
+            emptyPassword = PasswordUtil.validatePassword(password);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         //check if user name and password are not empty
-        if (email == null || email.equals("") || password == null || password.equals("")) {
+        if (email == null || email.equals("") || !emptyPassword) {
             request.setAttribute("email", email);
             request.setAttribute("password", password);
             request.setAttribute("emptiedField", true);
