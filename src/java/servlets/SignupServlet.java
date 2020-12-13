@@ -70,7 +70,8 @@ public class SignupServlet extends HttpServlet {
             request.setAttribute("password", password);
             request.setAttribute("emptiedField", true);
 
-            getServletContext().getRequestDispatcher("/WEB-INF/signup.jsp").forward(request, response);
+            //getServletContext().getRequestDispatcher("/WEB-INF/signup.jsp").forward(request, response);
+            response.sendRedirect("signup");
             return;
         }
 
@@ -90,7 +91,7 @@ public class SignupServlet extends HttpServlet {
         try {
             String path = getServletContext().getRealPath("/WEB-INF");
             String url = request.getRequestURL().toString(); // to get the current URL
-            as.insertUser(email, false, firstName, lastName, password, "a", company, 2, true, path, url); //TODO: fix salt
+            as.insertUser(email, false, firstName, lastName, password, company, 2, true, path, url);
         } catch (Exception ex) {
             Logger.getLogger(SignupServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

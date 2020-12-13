@@ -30,7 +30,7 @@ public class AccountService {
         String salt = user.getSalt();
 
         boolean isCorrectPassword = PasswordUtil.isCorrectPassword(password, passwordFromDB, salt);
-        
+
         try {
             if (isCorrectPassword && user.getActive()) {
                 Logger.getLogger(AccountService.class.getName()).log(Level.INFO, "Successful login by {0}", email);
@@ -100,7 +100,11 @@ public class AccountService {
      * @throws Exception if there is a Exception with PreparedStatements and
      * ResultSets
      */
-    public void insertUser(String email, boolean active, String firstName, String lastName, String password, String salt, int companyId, int roleId, boolean newUser, String path, String url) throws Exception {
+    public void insertUser(String email, boolean active, String firstName, String lastName, String password, int companyId, int roleId, boolean newUser, String path, String url) throws Exception {
+
+        String salt = PasswordUtil.getSalt();
+        password = PasswordUtil.hashAndSaltPassword(password, salt);
+
         User user = new User(email, active, firstName, lastName, password, salt);
 
         RoleDB roleDB = new RoleDB();
@@ -108,7 +112,7 @@ public class AccountService {
         user.setRole(role);
 
         CompanyDB companyDB = new CompanyDB();
-        Company company = companyDB.get(companyId); //TODO: need to fix
+        Company company = companyDB.get(companyId);
         user.setCompany(company);
 
         UserDB userDB = new UserDB();
@@ -177,10 +181,17 @@ public class AccountService {
     public void updateUser(String email, boolean active, String firstName, String lastName, String password, int companyId, int roleId) throws Exception {
         UserDB userDB = new UserDB();
         User user = userDB.get(email);
+        
         user.setActive(active);
         user.setFirstName(firstName);
         user.setLastName(lastName);
+
+        String salt = PasswordUtil.getSalt();
+        password = PasswordUtil.hashAndSaltPassword(password, salt);
         user.setPassword(password);
+        user.setSalt(salt);
+
+        userDB.update(user);
 
         RoleDB roleDB = new RoleDB();
         Role role = roleDB.get(roleId);
@@ -189,6 +200,33 @@ public class AccountService {
         CompanyDB companyDB = new CompanyDB();
         Company company = companyDB.get(companyId);
         user.setCompany(company);
+
+        userDB.update(user);
+    }
+    
+    /**
+     * Method that calls updateUser() in UserDB
+     *
+     * @param email user email address
+     * @param active user active or inactive
+     * @param firstName user first name
+     * @param lastName user last name
+     * @param password user password
+     *
+     * @throws Exception if there is a Exception with PreparedStatements and
+     * ResultSets
+     */
+    public void updateUser(String email, boolean active, String firstName, String lastName, String password) throws Exception {
+        UserDB userDB = new UserDB();
+        User user = userDB.get(email);
+        user.setActive(active);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+
+        String salt = PasswordUtil.getSalt();
+        password = PasswordUtil.hashAndSaltPassword(password, salt);
+        user.setPassword(password);
+        user.setSalt(salt);
 
         userDB.update(user);
     }
@@ -255,7 +293,12 @@ public class AccountService {
         UserDB userDB = new UserDB();
         try {
             User user = userDB.getByResetPasswordUUID(uuid);
+
+            String salt = PasswordUtil.getSalt();
+            password = PasswordUtil.hashAndSaltPassword(password, salt);
             user.setPassword(password);
+            user.setSalt(salt);
+
             user.setResetPasswordUuid(null);
             userDB.update(user);
             return true;
