@@ -52,6 +52,7 @@ public class AdminInventoryServlet extends HttpServlet {
                     try {
                         int itemId = Integer.parseInt(request.getParameter("itemId"));
                         Item item = inventoryService.getItem(itemId);
+                        request.setAttribute("itemOwner", item.getOwner().getEmail());
                         request.setAttribute("itemToEdit", item);
                         request.setAttribute("editItem", true);
                     } catch (Exception ex) {
@@ -102,6 +103,7 @@ public class AdminInventoryServlet extends HttpServlet {
                 int category = Integer.parseInt(request.getParameter("categoryName"));
                 String itemName = request.getParameter("itemName");
                 String priceString = request.getParameter("price");
+                String itemOwner = request.getParameter("itemOwner");
 
                 if (itemName == null || itemName.equals("") || priceString == null || priceString.equals("")) { // item name and price are mandatory to add a new item
                     request.setAttribute("invalidMsg", true);
@@ -112,12 +114,12 @@ public class AdminInventoryServlet extends HttpServlet {
                 try {
                     double price = Double.parseDouble(priceString);
                     if ("addItem".equals(saveMode)) { // adding a new item
-                        inventoryService.insertItem(itemName, price, email, category);
+                        inventoryService.insertItem(itemName, price, itemOwner, category);
                         request.setAttribute("addMsg", true);
                         request.setAttribute("itemAdded", itemName);
                     } else if ("editItem".equals(saveMode)) { // editing the existing item
                         int itemId = Integer.parseInt(request.getParameter("itemId"));
-                        inventoryService.updateItem(itemId, itemName, price, email, category);
+                        inventoryService.updateItem(itemId, itemName, price, itemOwner, category);
                         request.setAttribute("editMsg", true);
                         request.setAttribute("itemEdited", itemName);
                     }
@@ -155,6 +157,7 @@ public class AdminInventoryServlet extends HttpServlet {
             AccountService accountService = new AccountService();
             User user = accountService.getUser(email);
             request.setAttribute("user", user);
+            request.setAttribute("users", accountService.getAllUser());
 
             if ("searchItem".equals(action)) {
                 request.setAttribute("items", inventoryService.searchItem(searchKeyword));

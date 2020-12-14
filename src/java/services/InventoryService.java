@@ -85,8 +85,12 @@ public class InventoryService {
      * ResultSets
      */
     public void updateItem(int itemId, String itemName, double price, String owner, int categoryId) throws Exception {
+        UserDB userDB = new UserDB();
+        User user = userDB.get(owner);
+        
         ItemsDB itemsDB = new ItemsDB();
         Item item = itemsDB.get(itemId);
+        item.setOwner(user);
         item.setItemName(itemName);
         item.setPrice(price);
 
