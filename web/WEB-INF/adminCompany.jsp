@@ -104,7 +104,7 @@
                                                 <br>
                                                 <input type="text" name="lastName" placeholder="Last Name" class="form-control bg-dark text-white" value="${userToEdit.lastName}">
                                                 <br>
-                                                <input type="password" name="password" placeholder="Password" class="form-control bg-dark text-white" value="${userToEdit.password}">
+                                                <input type="password" name="password" placeholder="Password" class="form-control bg-dark text-white">
                                                 <br>                                    
                                                 <select name="roleName" class="form-control bg-dark text-white">
                                                     <c:forEach items="${roles}" var="role">
@@ -112,6 +112,7 @@
                                                         <option value="${role.roleId}" ${role.roleId == userToEdit.role.roleId ? 'selected="selected"' : ''}>${role.roleName}</option> 
                                                     </c:forEach>                        
                                                 </select>   
+                                                <input type="hidden" name="company" value="${company.companyId}"> 
                                                 <br>
                                                 <input type="submit" value="Save" class="btn btn-success btn-block">
                                                 <input type="hidden" name="action" value="saveUser"> 

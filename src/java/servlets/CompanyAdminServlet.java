@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import models.Company;
 import models.Item;
 import models.Role;
 import models.User;
@@ -98,7 +99,7 @@ public class CompanyAdminServlet extends HttpServlet {
                 String firstName = request.getParameter("firstName");
                 String lastName = request.getParameter("lastName");
                 String password = request.getParameter("password");
-                int company = Integer.parseInt(request.getParameter("companyName"));
+                int company = Integer.parseInt(request.getParameter("company"));
                 int role = Integer.parseInt(request.getParameter("roleName"));
 
                 if (email == null || email.equals("") || firstName == null || firstName.equals("") || lastName == null || lastName.equals("") || password == null || password.equals("")) { // email is mandatory to add a new user
@@ -109,7 +110,7 @@ public class CompanyAdminServlet extends HttpServlet {
                 String saveMode = request.getParameter("saveMode");
                 try {
                     if ("addUser".equals(saveMode)) { // adding a new user
-                        accountService.insertUser(email, isActive, firstName, lastName, password, company, role, false, null, null); //TODO: fix salt
+                        accountService.insertUser(email, isActive, firstName, lastName, password, company, role, false, null, null);
                         request.setAttribute("addMsg", true);
                         request.setAttribute("emailAdded", email);
                     } else if ("editUser".equals(saveMode)) { // editing the existing user
@@ -149,10 +150,12 @@ public class CompanyAdminServlet extends HttpServlet {
             List<User> users = accountService.getUser(email).getCompany().getUserList();
             List<Role> roles = accountService.getAllRoles();
             User user = accountService.getUser(email);
+            Company company = user.getCompany();
 
             request.setAttribute("users", users);
             request.setAttribute("roles", roles);
             request.setAttribute("user", user);
+            request.setAttribute("company", company);
         } catch (Exception ex) {
             Logger.getLogger(AdminServlet.class
                     .getName()).log(Level.SEVERE, null, ex);

@@ -78,7 +78,7 @@ public class AdminServlet extends HttpServlet {
             case "deleteUser":
                 try {
                     User user = accountService.getUser(email);
-                    accountService.deleteUser(email);                    
+                    accountService.deleteUser(email);
                     List<Item> itemList = user.getItemList();
 
                     InventoryService InventoryService = new InventoryService();
@@ -102,7 +102,7 @@ public class AdminServlet extends HttpServlet {
                 int company = Integer.parseInt(request.getParameter("companyName"));
                 int role = Integer.parseInt(request.getParameter("roleName"));
 
-                if (email == null || email.equals("") || firstName == null || firstName.equals("") ||lastName == null || lastName.equals("") ||password == null || password.equals("")) { // email is mandatory to add a new user
+                if (email == null || email.equals("") || firstName == null || firstName.equals("") || lastName == null || lastName.equals("") || password == null || password.equals("")) { // email is mandatory to add a new user
                     request.setAttribute("invalidMsg", true);
                     break;
                 }
@@ -110,7 +110,7 @@ public class AdminServlet extends HttpServlet {
                 String saveMode = request.getParameter("saveMode");
                 try {
                     if ("addUser".equals(saveMode)) { // adding a new user
-                        accountService.insertUser(email, isActive, firstName, lastName, password ,company, role, false, null, null); //TODO: fix salt
+                        accountService.insertUser(email, isActive, firstName, lastName, password, company, role, false, null, null);
                         request.setAttribute("addMsg", true);
                         request.setAttribute("emailAdded", email);
                     } else if ("editUser".equals(saveMode)) { // editing the existing user
@@ -151,7 +151,7 @@ public class AdminServlet extends HttpServlet {
             List<Role> roles = accountService.getAllRoles();
             List<Company> companies = accountService.getAllCompanies();
             User user = accountService.getUser(email);
-            
+
             request.setAttribute("users", users);
             request.setAttribute("roles", roles);
             request.setAttribute("companies", companies);
