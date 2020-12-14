@@ -71,7 +71,7 @@ public class MyAccountServlet extends HttpServlet {
         boolean isActive = ("active".equals(request.getParameter("isActive")));
 
         //validates that user name and password are not empty
-        if (firstName == null || firstName.equals("") || lastName == null || lastName.equals("") || password == null || password.equals("")) {
+        if (firstName == null || firstName.equals("") || lastName == null || lastName.equals("")) {
             try {
                 User user = accountService.getUser(email);
                 request.setAttribute("emptiedField", true);
