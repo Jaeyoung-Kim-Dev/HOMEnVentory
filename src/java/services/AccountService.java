@@ -181,17 +181,17 @@ public class AccountService {
     public void updateUser(String email, boolean active, String firstName, String lastName, String password, int companyId, int roleId) throws Exception {
         UserDB userDB = new UserDB();
         User user = userDB.get(email);
-        
+
         user.setActive(active);
         user.setFirstName(firstName);
         user.setLastName(lastName);
 
-        String salt = PasswordUtil.getSalt();
-        password = PasswordUtil.hashAndSaltPassword(password, salt);
-        user.setPassword(password);
-        user.setSalt(salt);
-
-        userDB.update(user);
+        if (password != "") {
+            String salt = PasswordUtil.getSalt();
+            password = PasswordUtil.hashAndSaltPassword(password, salt);
+            user.setPassword(password);
+            user.setSalt(salt);
+        }
 
         RoleDB roleDB = new RoleDB();
         Role role = roleDB.get(roleId);
@@ -203,7 +203,7 @@ public class AccountService {
 
         userDB.update(user);
     }
-    
+
     /**
      * Method that calls updateUser() in UserDB
      *
@@ -223,10 +223,12 @@ public class AccountService {
         user.setFirstName(firstName);
         user.setLastName(lastName);
 
-        String salt = PasswordUtil.getSalt();
-        password = PasswordUtil.hashAndSaltPassword(password, salt);
-        user.setPassword(password);
-        user.setSalt(salt);
+        if (password != "") {
+            String salt = PasswordUtil.getSalt();
+            password = PasswordUtil.hashAndSaltPassword(password, salt);
+            user.setPassword(password);
+            user.setSalt(salt);
+        }
 
         userDB.update(user);
     }
