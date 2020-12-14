@@ -60,7 +60,7 @@
                             <br>
                             <input type="text" name="lastName" placeholder="Last Name" class="form-control bg-dark text-white" value="${userToEdit.lastName}">
                             <br>
-                            <input type="password" name="password" placeholder="Password" class="form-control bg-dark text-white" value="${userToEdit.password}">
+                            <input type="password" name="password" placeholder="Password" class="form-control bg-dark text-white">
                             <br>                            
                             <input type="text" name="companyName" placeholder="Company" class="form-control bg-dark text-white" value="${userToEdit.company.companyName}" disabled>
                             <br>                            

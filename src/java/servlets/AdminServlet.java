@@ -77,9 +77,8 @@ public class AdminServlet extends HttpServlet {
             // it passes the email address for SQL query
             case "deleteUser":
                 try {
-                    accountService.deleteUser(email);
-
                     User user = accountService.getUser(email);
+                    accountService.deleteUser(email);                    
                     List<Item> itemList = user.getItemList();
 
                     InventoryService InventoryService = new InventoryService();

@@ -17,13 +17,13 @@
 
         <div class="container-fluid">
             <div class="row justify-content-md-center">
-                <div class="col-9 text-white">
+                <div class="col-10 text-white">
                     <br>
                     <h1>Home eVentory</h1>
                 </div>
             </div>
             <div class="row justify-content-md-center">
-                <div class="col-md-12 col-lg-9">
+                <div class="col-md-12 col-lg-10">
                     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                         <a class="navbar-brand" href="login"><div class="baseColor p-1 pl-2 pr-2">${user.firstName} ${user.lastName}</div></a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -221,7 +221,7 @@
                         </div> <%-- col --%>
                     </div>  <%-- row --%>
                 </div> <%-- col --%>
-                <div class="col-sm-12 col-md-8 col-lg-6">
+                <div class="col-sm-12 col-md-8 col-lg-7">
                     <div class="card bg-dark text-white">  <%-- right card for user manage users form --%>
                         <h1 class="card-header">Manage Users</h1>
                         <div class="card-body overflow-auto">
