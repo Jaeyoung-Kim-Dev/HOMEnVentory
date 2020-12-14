@@ -76,9 +76,8 @@ public class CompanyAdminServlet extends HttpServlet {
             // it passes the email address for SQL query
             case "deleteUser":
                 try {
-                    accountService.deleteUser(email);
-
                     User user = accountService.getUser(email);
+                    accountService.deleteUser(email);
                     List<Item> itemList = user.getItemList();
 
                     InventoryService InventoryService = new InventoryService();
@@ -102,7 +101,7 @@ public class CompanyAdminServlet extends HttpServlet {
                 int company = Integer.parseInt(request.getParameter("companyName"));
                 int role = Integer.parseInt(request.getParameter("roleName"));
 
-                if (email == null || email.equals("") || firstName == null || firstName.equals("") ||lastName == null || lastName.equals("") ||password == null || password.equals("")) { // email is mandatory to add a new user
+                if (email == null || email.equals("") || firstName == null || firstName.equals("") || lastName == null || lastName.equals("") || password == null || password.equals("")) { // email is mandatory to add a new user
                     request.setAttribute("invalidMsg", true);
                     break;
                 }
@@ -150,10 +149,10 @@ public class CompanyAdminServlet extends HttpServlet {
             List<User> users = accountService.getUser(email).getCompany().getUserList();
             List<Role> roles = accountService.getAllRoles();
             User user = accountService.getUser(email);
-            
+
             request.setAttribute("users", users);
             request.setAttribute("roles", roles);
-            request.setAttribute("user", user);            
+            request.setAttribute("user", user);
         } catch (Exception ex) {
             Logger.getLogger(AdminServlet.class
                     .getName()).log(Level.SEVERE, null, ex);

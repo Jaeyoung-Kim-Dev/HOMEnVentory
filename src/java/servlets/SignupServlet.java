@@ -80,8 +80,9 @@ public class SignupServlet extends HttpServlet {
             User exsitingUser = as.getUser(email);
 
             if (exsitingUser != null) {
-                request.setAttribute("exsitingUser", true);
-                getServletContext().getRequestDispatcher("/WEB-INF/signup.jsp").forward(request, response);
+                //request.setAttribute("exsitingUser", true);                
+                //getServletContext().getRequestDispatcher("/WEB-INF/signup.jsp").forward(request, response);
+                response.sendRedirect("signup");
             }
         } catch (Exception ex) {
             Logger.getLogger(SignupServlet.class.getName()).log(Level.SEVERE, null, ex);
