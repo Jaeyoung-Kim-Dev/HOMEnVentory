@@ -118,7 +118,14 @@
                                     <br>      
                                     <form method="post" action="admininventory">
                                         <c:choose>
-                                            <c:when test="${enableForm == true}">                                            
+                                            <c:when test="${enableForm == true}">       
+                                                <select name="itemOwner" class="form-control bg-dark text-white">
+                                                    <c:forEach items="${users}" var="user">
+                                                        <%-- when the role ID found then the opstion is default selected--%>
+                                                        <option value="${user.email}" ${user.email == itemToEdit.owner.email ? 'selected="selected"' : ''}>${user.email}</option> 
+                                                    </c:forEach>                        
+                                                </select>  
+                                                <br>        
                                                 <select name="categoryName" class="form-control bg-dark text-white">
                                                     <c:forEach items="${categories}" var="category">
                                                         <%-- when the role ID found then the opstion is default selected--%>
@@ -136,6 +143,10 @@
                                                 <input type="hidden" name="saveMode" value="${addItem ? 'addItem' : 'editItem'}">                                    
                                             </c:when>
                                             <c:when test="${enableForm == false}">    
+                                                <select name="email" class="form-control bg-dark" disabled>
+                                                    <option>Email</option>
+                                                </select> 
+                                                <br>
                                                 <select name="categoryName" class="form-control bg-dark" disabled>
                                                     <option>Category</option>
                                                 </select>  
