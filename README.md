@@ -10,7 +10,7 @@
 
 - JSP, Servlet
 
-## Database ERD
+## Database ERD (MySQL)
 
 ![erd](https://github.com/Jaeyoung-Kim-Dev/HOMEnVentory/blob/master/screenshots/database_erd.svg?raw=true)
 
