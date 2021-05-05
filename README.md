@@ -12,6 +12,8 @@
 
 ## Database ERD (MySQL)
 
+TODO: Change background darker to see the lines
+
 ![erd](https://github.com/Jaeyoung-Kim-Dev/HOMEnVentory/blob/master/screenshots/database_erd.svg?raw=true)
 
 ## Author
