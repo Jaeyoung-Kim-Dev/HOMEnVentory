@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to HOMEnVentory 👋</h1>
+s<h1 align="center">Welcome to HOMEnVentory 👋</h1>
 
 ## What project is it?
 
@@ -14,7 +14,9 @@
 
 TODO: Change background darker to see the lines
 
-![erd](https://github.com/Jaeyoung-Kim-Dev/HOMEnVentory/blob/master/screenshots/database_erd.svg?raw=true)
+<span style='filter: invert(99%) sepia(1%) saturate(5%) hue-rotate(14deg) brightness(101%)
+contrast(101%)'> '![erd](https://github.com/Jaeyoung-Kim-Dev/HOMEnVentory/blob/master/screenshots/database_erd.svg?raw=true)
+</span>
 
 ## Author
 
