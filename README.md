@@ -53,10 +53,16 @@
 
 - Other technoloies: JSP, Servlet, JPA
 - IDE: NetBeans
+- Server: Apache Tomcat 8.0.27.0
 
 ## Screen Shots
 
 ![erd](https://github.com/Jaeyoung-Kim-Dev/HOMEnVentory/blob/master/screenshots/screenshot1.jpg?raw=true)
+![erd](https://github.com/Jaeyoung-Kim-Dev/HOMEnVentory/blob/master/screenshots/screenshot2.jpg?raw=true)
+![erd](https://github.com/Jaeyoung-Kim-Dev/HOMEnVentory/blob/master/screenshots/screenshot3.jpg?raw=true)
+![erd](https://github.com/Jaeyoung-Kim-Dev/HOMEnVentory/blob/master/screenshots/screenshot4.jpg?raw=true)
+![erd](https://github.com/Jaeyoung-Kim-Dev/HOMEnVentory/blob/master/screenshots/screenshot5.jpg?raw=true)
+![erd](https://github.com/Jaeyoung-Kim-Dev/HOMEnVentory/blob/master/screenshots/screenshot6.jpg?raw=true)
 
 ## Author
 
