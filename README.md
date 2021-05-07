@@ -45,7 +45,7 @@
 
 ## Database ERD (MySQL)
 
-![erd](https://github.com/Jaeyoung-Kim-Dev/HOMEnVentory/blob/master/screenshots/database_erd.jpg?raw=true)
+![erd](./screenshots/database_erd.jpg?raw=true)
 
 ## Languages
 
@@ -57,12 +57,12 @@
 
 ## Screen Shots
 
-![erd](https://github.com/Jaeyoung-Kim-Dev/HOMEnVentory/blob/master/screenshots/screenshot1.jpg?raw=true)
-![erd](https://github.com/Jaeyoung-Kim-Dev/HOMEnVentory/blob/master/screenshots/screenshot2.jpg?raw=true)
-![erd](https://github.com/Jaeyoung-Kim-Dev/HOMEnVentory/blob/master/screenshots/screenshot3.jpg?raw=true)
-![erd](https://github.com/Jaeyoung-Kim-Dev/HOMEnVentory/blob/master/screenshots/screenshot4.jpg?raw=true)
-![erd](https://github.com/Jaeyoung-Kim-Dev/HOMEnVentory/blob/master/screenshots/screenshot5.jpg?raw=true)
-![erd](https://github.com/Jaeyoung-Kim-Dev/HOMEnVentory/blob/master/screenshots/screenshot6.jpg?raw=true)
+![screenshot1](./screenshots/screenshot1.jpg?raw=true)
+![screenshot2](./screenshots/screenshot2.jpg?raw=true)
+![screenshot3](./screenshots/screenshot3.jpg?raw=true)
+![screenshot4](./screenshots/screenshot4.jpg?raw=true)
+![screenshot5](./screenshots/screenshot5.jpg?raw=true)
+![screenshot6](./screenshots/screenshot6.jpg?raw=true)
 
 ## Author
 
